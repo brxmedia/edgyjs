@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;GAGG;AEDH,AAAA,YAAY,CAAC;EACT,KAAK,EDDC,IAAI;CCEb",
+    "sources": [
+        "edgy.scss",
+        "scss/_var.scss",
+        "scss/_general.scss"
+    ],
+    "names": [],
+    "file": "edgy.css"
+}

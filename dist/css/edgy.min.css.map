@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "AAAA,sDAIG;AEFH,AAAA,YAAY,CAAC,EACT,KAAK,EDDC,IAAI,GCEb",
+    "sources": [
+        "edgy.scss",
+        "scss/_var.scss",
+        "scss/_general.scss"
+    ],
+    "names": [],
+    "file": "edgy.min.css"
+}
