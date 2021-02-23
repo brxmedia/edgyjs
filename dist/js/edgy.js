@@ -7,9 +7,9 @@ var startDragX = 0;
 var startDragY = 0;
 
 function init() {
-    if (window.Event) {
-        document.captureEvents(Event.MOUSEMOVE);
-    }
+    // if (window.Event) {
+    //     document.captureEvents(Event.MOUSEMOVE);
+    // }
     document.onmousemove = getCursorPosition;
 }
 
@@ -55,9 +55,9 @@ function onMouseUp() {
 }
 
 // handlers bound to the element only once
-var onMouseDown = addEvent ('.touchsquare', 'mousedown', onMouseDown);
-var onMouseMove = addEvent ('.touchsquare', 'mousemove', onMouseMove);
-var onMouseUp = addEvent ('.touchsquare', 'mouseup'  , onMouseUp);
+var onMouseDown = addEvent (document.window, 'mousedown', onMouseDown);
+var onMouseMove = addEvent (document.window, 'mousemove', onMouseMove);
+var onMouseUp = addEvent (document.window, 'mouseup'  , onMouseUp);
 
 
 
