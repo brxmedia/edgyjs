@@ -18,15 +18,15 @@ class edgy{
         var elements = document.querySelectorAll(this.element);
 
 
-        console.log(new egdewiz());
+        console.log(new egdewiz(true));
     }
 }
 
 
 class egdewiz{
+
     constructor(debug = false, debugelement = '#edgewizDebug'){
         
-        window.onload = this.init();
         this.dragging = false;
         this.status = 'init';
         this.current = {
@@ -42,14 +42,18 @@ class egdewiz{
             Y: 0
         };
 
+        // debug
+        this.debug = debug;
+        window.onload = this.init();
+
         // handlers bound to the element only once
-        this.onMouseDown = addEvent (document, 'mousedown', this.onMouseDown());
-        this.onMouseMove = addEvent (document, 'mousemove', this.onMouseMove());
-        this.onMouseUp = addEvent (document, 'mouseup', this.onMouseUp());
+        this.onMouseDown = this.addEvent (document, 'mousedown', this.onMouseDown());
+        this.onMouseMove = this.addEvent (document, 'mousemove', this.onMouseMove());
+        this.onMouseUp = this.addEvent (document, 'mouseup', this.onMouseUp());
     }
 
     init() {
-        document.onmousemove = this.getCursorPosition();
+        document.onmousemove = this.getCursorPosition;
     }
 
     getCursorPosition(e) {
@@ -80,6 +84,12 @@ class egdewiz{
         this.drag = {
             X: this.current.X - this.startDrag.X,
             Y: this.current.Y - this.startDrag.Y
+        }
+        console.log(this.status);
+        if(this.debug){
+            document.getElementById('posX').innerHTML = "current X: " + this.current.X;
+            document.getElementById('posY').innerHTML = "current Y: " + this.current.Y;
+            console.log(this.current);
         }
     }
 
