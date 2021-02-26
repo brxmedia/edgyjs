@@ -1,83 +1,117 @@
-window.onload = init;
-var dragging = false;
-var currentX = 0;
-var currentY = 0;
+'use strict';
 
-var startDragX = 0;
-var startDragY = 0;
+var defaults = {
+    direction: 'right',
+    handle: '15px'
+};
 
-function init() {
-    // if (window.Event) {
-    //     document.captureEvents(Event.MOUSEMOVE);
-    // }
-    document.onmousemove = getCursorPosition;
+class edgy{
+    constructor(element, args = {}){
+        this.element = element;
+        this.args = Object.assign({}, defaults, args);
+
+        this.init();
+    }
+
+    init(){
+        // get all DOM Elements for element
+        var elements = document.querySelectorAll(this.element);
+
+
+        console.log(new egdewiz());
+    }
 }
 
-function getCursorPosition(e) {
-    currentX = ((window.Event) ? e.pageX : event.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft));
-    currentY = ((window.Event) ? e.pageY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop));
 
-    document.getElementById('posX').innerHTML = "current X: " + currentX;
-    document.getElementById('posY').innerHTML = "current Y: " + currentY;
-}
-
-function addEvent(element, type, fn) {
-    // custom add event function that cares about compatibility
-    return document.querySelector(element).addEventListener(type, fn);
-}
-
-function onMouseDown() {
-    dragging = true;
-    document.getElementById('status').innerHTML = 'status: start dragging';
-    startDragX = currentX;
-    startDragY = currentY;
-    document.getElementById('startDragX').innerHTML = 'startDrag X: ' + startDragX;
-    document.getElementById('startDragY').innerHTML = 'startDrag Y: ' + startDragY;
-}
-
-function onMouseMove() {
-    if (!dragging) return; // skip dragging action if mouse button not depressed
-    // do your dragging stuff
-    document.getElementById('status').innerHTML = 'status: dragging';
-
-    var dragX = currentX - startDragX;
-    var dragY = currentY - startDragY;
-    document.getElementById('draggedX').innerHTML = 'dragged X: ' + dragX;
-    document.getElementById('draggedY').innerHTML = 'dragged Y: ' + dragY;
-}
-
-function onMouseUp() {
-    dragging = false;
-    document.getElementById('status').innerHTML = 'status: stop dragging';
-    startDragX = 0;
-    startDragY = 0;
-    // do your end of dragging stuff
-}
-
-// handlers bound to the element only once
-var onMouseDown = addEvent (document.window, 'mousedown', onMouseDown);
-var onMouseMove = addEvent (document.window, 'mousemove', onMouseMove);
-var onMouseUp = addEvent (document.window, 'mouseup'  , onMouseUp);
-
-
-
-
-
-
-
-// var touchsquare = document.querySelector(".touchsquare");
-// var circle = document.getElementById("circ");
-// console.log(touchsquare);
-// touchsquare.addEventListener ("mousedown", function (eve) {
-//     console.log("fired");
-//     let dim = touchsquare.getBoundingClientRect();
-//     console.log(dim);
-//     let posx = event.clientX - dim.left;
-//     let posy = event.clientY - dim.top;
-            
-//     circle.setAttribute("cx",posx);
-//     circle.setAttribute("cy",posy);
-//     document.querySelector("#source").innerHTML =  posx + " " + posy + "  <br>" +dim.left+ " " + dim.top;
+class egdewiz{
+    constructor(debug = false, debugelement = '#edgewizDebug'){
         
-//     eve.preventDefault();
-// });
+        window.onload = this.init();
+        this.dragging = false;
+        this.status = 'init';
+        this.current = {
+            X: 0,
+            Y: 0
+        };
+        this.startDrag = {
+            X: 0,
+            Y: 0
+        }
+        this.drag = {
+            X: 0,
+            Y: 0
+        };
+
+        // handlers bound to the element only once
+        this.onMouseDown = addEvent (document, 'mousedown', this.onMouseDown());
+        this.onMouseMove = addEvent (document, 'mousemove', this.onMouseMove());
+        this.onMouseUp = addEvent (document, 'mouseup', this.onMouseUp());
+    }
+
+    init() {
+        document.onmousemove = this.getCursorPosition();
+    }
+
+    getCursorPosition(e) {
+        this.current = {
+            X: ((window.Event) ? e.pageX : event.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft)),
+            Y: ((window.Event) ? e.pageY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))
+        };
+    }
+
+    addEvent(element, type, fn) {
+        // custom add event function that cares about compatibility
+        return element.addEventListener(type, fn);
+    }
+
+    onMouseDown() {
+        this.dragging = true;
+        this.status = 'start dragging';
+        this.startDrag = {
+            X: this.current.X,
+            Y: this.current.Y
+        };
+    }
+
+    onMouseMove() {
+        if (!this.dragging) return; // skip dragging action if mouse button not depressed
+        // do your dragging stuff
+        this.status = 'dragging';
+        this.drag = {
+            X: this.current.X - this.startDrag.X,
+            Y: this.current.Y - this.startDrag.Y
+        }
+    }
+
+    onMouseUp() {
+        this.dragging = false;
+        this.status = 'stop dragging';
+        this.startDrag = {
+            X: 0,
+            Y: 0
+        };
+    }
+}
+
+console.log(new edgy('.edgy',{
+    handle: 'drölf'
+}));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
