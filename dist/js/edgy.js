@@ -17,13 +17,19 @@ class edgy{
         // get all DOM Elements for element
         var elements = document.querySelectorAll(this.element);
 
-
-        console.log(new egdewiz(true));
+        var obj_edgewiz = new egdewiz(true);
     }
 }
 
 
 class egdewiz{
+    current = {};
+    status;
+    dragging = false;
+    _debug = false;
+
+    get debug(){return this._debug;}
+    set debug(value){this._debug = value;}
 
     constructor(debug = false, debugelement = '#edgewizDebug'){
         
@@ -46,14 +52,15 @@ class egdewiz{
         this.debug = debug;
         window.onload = this.init();
 
+        var element = document.querySelector('#object');
         // handlers bound to the element only once
-        this.onMouseDown = this.addEvent (document, 'mousedown', this.onMouseDown());
-        this.onMouseMove = this.addEvent (document, 'mousemove', this.onMouseMove());
-        this.onMouseUp = this.addEvent (document, 'mouseup', this.onMouseUp());
+        this.onMouseDown = this.addEvent (element, 'mousedown', this.onMouseDown());
+        this.onMouseMove = this.addEvent (element, 'mousemove', this.onMouseMove());
+        this.onMouseUp = this.addEvent (element, 'mouseup', this.onMouseUp());
     }
 
-    init() {
-        document.onmousemove = this.getCursorPosition;
+    init(e) {
+        document.onmousemove = this.getCursorPosition(e);
     }
 
     getCursorPosition(e) {
@@ -61,6 +68,14 @@ class egdewiz{
             X: ((window.Event) ? e.pageX : event.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft)),
             Y: ((window.Event) ? e.pageY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))
         };
+        if(this.debug){
+            document.getElementById('posX').innerHTML = "current X: " + this.current.X;
+            document.getElementById('posY').innerHTML = "current Y: " + this.current.Y;
+        }
+        console.log(this);
+    }
+    test(){
+        console.log(this);
     }
 
     addEvent(element, type, fn) {
@@ -85,11 +100,9 @@ class egdewiz{
             X: this.current.X - this.startDrag.X,
             Y: this.current.Y - this.startDrag.Y
         }
-        console.log(this.status);
         if(this.debug){
             document.getElementById('posX').innerHTML = "current X: " + this.current.X;
             document.getElementById('posY').innerHTML = "current Y: " + this.current.Y;
-            console.log(this.current);
         }
     }
 
@@ -103,9 +116,9 @@ class egdewiz{
     }
 }
 
-console.log(new edgy('.edgy',{
+var obj_edgy = new edgy('.edgy',{
     handle: 'drölf'
-}));
+});
 
 
 
