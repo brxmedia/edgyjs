@@ -4,5 +4,5 @@
 .vscode
 .vscode/**
 
-index.*
-favicon.ico
+/index.*
+/favicon.ico
