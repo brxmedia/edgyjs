@@ -17,7 +17,6 @@ class edgy{
         // get all DOM Elements for element
         this.element.addEventListener('edgewiz.start', function(){
             console.log('EDGEWIZ Start is fired');
-            console.log(this);
         });
         this.element.addEventListener('edgewiz.move', function(){
             console.log('EDGEWIZ Move is fired');
@@ -39,6 +38,7 @@ class egdewiz{
         this.debug = debug;
         this.debugElement = document.getElementById(debugElement);
 
+        this.dragging = false;
         this.start = {x:0,y:0};
         this.dist = {x:0,y:0};
 
@@ -53,6 +53,7 @@ class egdewiz{
 
     touchstart(eve){
         let touchobj = eve.changedTouches[0]; // reference first touch point for this event
+        this.dragging = true;
         this.start = {
             x: parseInt(touchobj.clientX),
             y: parseInt(touchobj.clientY)
@@ -64,21 +65,26 @@ class egdewiz{
         if(this.debug)  this.debugElement.innerHTML = "touchstart bei ClientX: " + this.start.x + "px ClientY: " + this.start.y + "px";
     }
     touchmove(eve){
-        let touchobj = eve.changedTouches[0]; // reference first touch point for this event
-        this.dist = {
-            x: parseInt(touchobj.clientX) - this.start.x,
-            y: parseInt(touchobj.clientY) - this.start.y
-        };
+        if(this.dragging){
+            let touchobj = eve.changedTouches[0]; // reference first touch point for this event
 
-        this.element.dispatchEvent(this.moveEvent);
-        eve.preventDefault();
+            this.dist = {
+                x: parseInt(touchobj.clientX) - this.start.x,
+                y: parseInt(touchobj.clientY) - this.start.y
+            };
 
-        if(this.debug)  this.debugElement.innerHTML = "touchmove horizontal: " + this.dist.x + "px vertikal: " + this.dist.y + "px";
+            this.element.style.transform = 'translateX('+ this.dist.x +'px)';
+    
+            this.element.dispatchEvent(this.moveEvent);
+            eve.preventDefault();
+    
+            if(this.debug)  this.debugElement.innerHTML = "touchmove horizontal: " + this.dist.x + "px vertikal: " + this.dist.y + "px";
+        }
      }
      
      touchend(eve){
         let touchobj = eve.changedTouches[0]; // reference first touch point for this event
-
+        this.dragging = false;
         this.element.dispatchEvent(this.stopEvent);
         eve.preventDefault();
 
