@@ -1,5 +1,27 @@
 // SASS File - general style settings
 
 .edgy {
-    position: relative;
+    position: absolute;
+
+
+    &-left{
+        top: 0;
+        bottom: 0;
+        left: 0;
+    }
+    &-open,
+    &-swipe{
+        width: 100% !important;
+    }
+    nav{
+        position: absolute;
+        width: 250px;
+        right: 100%;
+        top: 0;
+        bottom: 0;
+
+        background: #fff;
+        padding: 0.75rem;
+        transition: all .05s ease-in-out;
+    }
 }

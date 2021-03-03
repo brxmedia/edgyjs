@@ -1,7 +1,7 @@
 'use strict';
 
 var defaults = {
-    position: 'right',
+    position: 'left',
     trigger: '.edgy-btn',
     handle: 15,
     parent: ''
@@ -12,8 +12,9 @@ class edgy{
         this.element = document.querySelector(element);
         if(this.element == null || typeof(this.element) == 'undefined') throw Error("Element not found!\n\nThe element '" + element + "' you provided to edgy was not found in the DOM!");
         
+        // compare defaults with transmitted arguments
         this.args = Object.assign({}, defaults, args);
-
+        this.validateArgs();
 
         this.init();
     }
@@ -26,8 +27,22 @@ class edgy{
         var obj_edgewiz = new egdewiz(this.element,true);
     }
     /**
+     * Validating all Arguments a user can potentialy transmit wrong
+     */
+    validateArgs(){
+        let wholeHandle = this.args.handle;
+        this.args.handle = parseFloat(this.args.handle, 10);
+
+        let handleUnit = wholeHandle.substring(String(this.args.handle).length, wholeHandle.length);
+        this.handleUnit = 'px';
+        if(handleUnit.length >= 1 && (handleUnit == '%' || handleUnit == 'px' || handleUnit == 'em' || handleUnit == 'rem')) this.handleUnit = handleUnit;
+
+        if(isNaN(this.args.handle)) throw TypeError("Wrong data type!\n\nThe argument - handle has to be of type 'number', not of type '"+ typeof(this.args.handle) +"'!");
+
+    }
+    /**
      * Prepair DOM for edgy,
-     * if edgy content is not wrapped with `<nav>` it will generate `<nav>`.
+     * if edgy content is not wrapped with `<nav>` it will generate `<nav>` and settings default _styles_ and _classes_ based on parsed arguments.
      */
     prepairDOM(){
         if(this.element.children[0].tagName != 'nav'){
@@ -35,6 +50,11 @@ class edgy{
             let wrapped = '<nav>'+ cache +'</nav>';
             this.element.innerHTML = wrapped;
         }
+        // add class bases on position
+        if(!this.element.classList.contains('edgy')) this.element.classList.add('edgy');
+        this.element.classList.add('edgy-'+ this.args.position);
+
+        this.element.style.width = this.args.handle + this.handleUnit;
     }
     /**
      * Add EventListeners for edgewiz and even more custom events.
@@ -71,10 +91,16 @@ class egdewiz{
         this.debug = debug;
         this.debugElement = document.getElementById(debugElement);
 
+        this.status = 'close';
         this.swipe = false;
         this.start = {x:0,y:0};
         this.dist = {x:0,y:0};
         this.stop = {x:0,y:0};
+
+        this.nav = this.element.children[0];
+        this.navWidth = this.nav.offsetWidth;
+
+        console.log(this.nav);
 
         this.element.addEventListener("touchstart", eve => this.touchstart(eve));
         this.element.addEventListener("touchmove", eve => this.touchmove(eve));
@@ -85,10 +111,46 @@ class egdewiz{
             this.element.addEventListener('mousemove',eve => this.touchmove(eve,false));
             this.element.addEventListener('mouseup',eve => this.touchend(eve,false));
         }
+    }
 
-        this.startEvent = new Event('edgewiz.start');
-        this.moveEvent = new Event('edgewiz.move');
-        this.stopEvent = new Event('edgewiz.stop');
+    wizstart(){
+        this.element.classList.add('edgy-swipe');
+    }
+    wizmove(){
+        if(this.status == 'close'){
+            let move = 0;
+            if(this.dist.x >= this.navWidth)    move = this.navWidth;
+            else                                move = this.dist.x;
+    
+            this.nav.style.transform = 'translateX('+ move +'px)';
+        }
+        else{
+            let move = 0;
+            if(this.dist.x <= this.navWidth)    move = this.navWidth;
+            else                                move = this.dist.x;
+    
+            this.nav.style.transform = 'translateX('+ (this.navWidth - move) +'px)';
+        }
+    }
+    wizend(){
+        if(this.dist.x >= this.navWidth / 2)    this.wizopen();
+        else                                    this.wizclose();
+
+        this.element.classList.remove('edgy-swipe');
+    }
+
+    wizopen(){
+        this.status = 'open';
+        this.nav.style.transform = 'translateX('+ this.navWidth +'px)';
+        this.element.classList.add('edgy-open');
+        this.element.classList.remove('edgy-close');
+    }
+
+    wizclose(){
+        this.status = 'close';
+        this.nav.style.transform = 'translateX(0px)';
+        this.element.classList.add('edgy-close');
+        this.element.classList.remove('edgy-open');
     }
 
     /**
@@ -96,7 +158,7 @@ class egdewiz{
     */
     touchstart(eve, touch = true){
         // dispatch Event wizstart
-        this.element.dispatchEvent(this.startEvent);
+        this.element.dispatchEvent(new Event('edgewiz.start'));
         // Event prevent Default
         eve.preventDefault();
 
@@ -109,13 +171,15 @@ class egdewiz{
             y: parseInt(evt.clientY)
         };
 
+        this.wizstart();
+
         // DEBUG
         if(this.debug)  this.debugElement.innerHTML = "touchstart bei ClientX: " + this.start.x + "px ClientY: " + this.start.y + "px";
     }
     touchmove(eve, touch = true){
         if(this.swipe){
             // dispatch Event wizmove
-            this.element.dispatchEvent(this.moveEvent);
+            this.element.dispatchEvent(new Event('edgewiz.move'));
             // Event prevent Default
             eve.preventDefault();
 
@@ -127,16 +191,15 @@ class egdewiz{
                 y: parseInt(evt.clientY) - this.start.y
             };
 
-            this.element.style.transform = 'translateX('+ this.dist.x +'px)';
+            this.wizmove();
 
             // DEBUG
             if(this.debug)  this.debugElement.innerHTML = "touchend bei X-Koordinate: " + this.stop.x + "px Y-Koordinate: " + this.stop.y + "px";
         }
     }
-     
     touchend(eve, touch = true){
         // dispatch Event wizstop
-        this.element.dispatchEvent(this.stopEvent);
+        this.element.dispatchEvent(new Event('edgewiz.stop'));
         // Event prevent Default
         eve.preventDefault();
 
@@ -148,17 +211,14 @@ class egdewiz{
             x: parseInt(evt.clientX),
             y: parseInt(evt.clientY)
         };
-        this.element.style.position = 'relative';
-        let left = this.element.style.left ? this.element.style.left : 0;
-        this.element.style.left = ''+ (parseInt(left, 10) + this.dist.x) +'px';
-        console.log(left);
-        this.element.style.transform = 'translateX(0px)';
+
+        this.wizend();
 
         // DEBUG
         if(this.debug)  this.debugElement.innerHTML = "touchend bei X-Koordinate: " + this.stop.x + "px Y-Koordinate: " + this.stop.y + "px";
     }
 }
 
-var obj_edgy = new edgy('.edgy',{
-    handle: 'drölf'
+var obj_edgy = new edgy('#sidebar',{
+    handle: '.75rem'
 });
