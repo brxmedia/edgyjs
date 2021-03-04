@@ -19,7 +19,7 @@ body > .edgy-shadow {
     transition: box-shadow .5s ease, -webkit-box-shadow .5s ease; }
   .edgy-left > nav,
   .edgy-right > nav {
-    width: 350px;
+    width: 250px;
     height: 100%; }
   .edgy-top > nav,
   .edgy-bottom > nav {
