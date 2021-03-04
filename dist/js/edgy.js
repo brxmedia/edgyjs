@@ -379,7 +379,7 @@ class egdewiz{
 
         // SHADOW
         var i = 0;
-        var val = setInterval(() => {
+        var val = setInterval(async () => {
             i++;
             this.args.shadow.style.opacity = parseFloat(this.args.shadow.style.opacity) + 0.02;
             if(this.args.shadow.style.opacity >= 1) this.args.shadow.style.opacity = 1;
@@ -419,7 +419,7 @@ class egdewiz{
 
         // SHADOW
         var i = 0;
-        var val = setInterval(() => {
+        var val = setInterval(async () => {
             i++;
             this.args.shadow.style.opacity = parseFloat(this.args.shadow.style.opacity) - 0.02;
             if(this.args.shadow.style.opacity <= 0) this.args.shadow.style.opacity = 0;
