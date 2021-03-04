@@ -41,7 +41,17 @@ class edgy{
         this.addEvents();
 
         // launch edgewiz
-        new egdewiz(this.element, this.args, true);
+        this.edgewiz = new egdewiz(this.element, this.args);
+    }
+
+    open(){
+        this.edgewiz.wizopen();
+    }
+    close(){
+        this.edgewiz.wizclose();
+    }
+    toggle(){
+        this.edgewiz.wiztoggle();
     }
 
     /**
@@ -101,6 +111,11 @@ class edgy{
      * Add EventListeners for edgewiz and even more custom events.
      */
     addEvents(){
+        // add toggle function on trigger button click
+        document.querySelector(this.args.trigger).addEventListener('click', () => {
+            this.edgewiz.wiztoggle();
+        });
+
         // get all DOM Elements for element
         this.element.addEventListener('edgewiz.start', function(){
             // console.log('EDGEWIZ Start is fired');
@@ -372,8 +387,11 @@ class egdewiz{
                 clearInterval(val);
             }
         }, 5);
-        
+        if(this.args.shadow.style.display != 'block') this.args.shadow.style.display = 'block';
         this.element.classList.add('edgy-open');
+        if(this.args.parent.tagName != 'body'){
+            document.body.classList.add('edgy-open');
+        }
         this.args.parent.classList.add('edgy-open');
         this.element.classList.remove('edgy-close');
     }
@@ -412,8 +430,16 @@ class egdewiz{
         }, 5);
         
         this.element.classList.add('edgy-close');
+        if(this.args.parent.tagName != 'body'){
+            document.body.classList.remove('edgy-open');
+        }
         this.args.parent.classList.remove('edgy-open');
         this.element.classList.remove('edgy-open');
+    }
+
+    wiztoggle(){
+        if(this.open)   this.wizclose();
+        else            this.wizopen();
     }
 
     /**
