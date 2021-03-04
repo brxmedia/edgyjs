@@ -40,18 +40,18 @@ class edgy{
         this.prepairDOM();
         this.addEvents();
 
-        // launch edgewiz
-        this.edgewiz = new egdewiz(this.element, this.args);
+        // launch _edgewiz
+        this._edgewiz = new egdewiz(this.element, this.args);
     }
 
     open(){
-        this.edgewiz.wizopen();
+        this._edgewiz.wizopen(true);
     }
     close(){
-        this.edgewiz.wizclose();
+        this._edgewiz.wizclose(true);
     }
     toggle(){
-        this.edgewiz.wiztoggle();
+        this._edgewiz.wiztoggle();
     }
 
     /**
@@ -108,23 +108,23 @@ class edgy{
         }
     }
     /**
-     * Add EventListeners for edgewiz and even more custom events.
+     * Add EventListeners for _edgewiz and even more custom events.
      */
     addEvents(){
         // add toggle function on trigger button click
         document.querySelector(this.args.trigger).addEventListener('click', () => {
-            this.edgewiz.wiztoggle();
+            this._edgewiz.wiztoggle();
         });
 
         // get all DOM Elements for element
-        this.element.addEventListener('edgewiz.start', function(){
-            // console.log('EDGEWIZ Start is fired');
+        this.element.addEventListener('_edgewiz.start', function(){
+            // console.log('_EDGEWIZ Start is fired');
         });
-        this.element.addEventListener('edgewiz.move', function(){
-            // console.log('EDGEWIZ Move is fired');
+        this.element.addEventListener('_edgewiz.move', function(){
+            // console.log('_EDGEWIZ Move is fired');
         });
-        this.element.addEventListener('edgewiz.stop', function(){
-            // console.log('EDGEWIZ Stop is fired');
+        this.element.addEventListener('_edgewiz.stop', function(){
+            // console.log('_EDGEWIZ Stop is fired');
         });
     }
 }
@@ -136,11 +136,11 @@ class edgy{
 class egdewiz{
     /**
      * 
-     * @param {*} element The DOM element that edgewiz will bind to
+     * @param {*} element The DOM element that _edgewiz will bind to
      * @param {*} debug Boolean if theres a debug view or not.
      * @param {*} debugElement The elementID the debug will be placed in.
      */
-    constructor(element, args, debug = false, debugElement = 'edgewizDebug'){
+    constructor(element, args, debug = false, debugElement = '_edgewizDebug'){
         this.mousesupport = true;
 
         this.element = element;
@@ -356,7 +356,7 @@ class egdewiz{
         }
     }
 
-    wizopen(){
+    wizopen(direct = false){
         this.open = true;
         switch (this.args.position) {
             case 'left':
@@ -387,7 +387,10 @@ class egdewiz{
                 clearInterval(val);
             }
         }, 5);
-        if(this.args.shadow.style.display != 'block') this.args.shadow.style.display = 'block';
+        if(direct){
+            if(this.args.shadow.style.display != 'block') this.args.shadow.style.display = 'block';
+            if(this.args.shadow.style.opacity != 1) this.args.shadow.style.opacity = 1;
+        }
         this.element.classList.add('edgy-open');
         if(this.args.parent.tagName != 'body'){
             document.body.classList.add('edgy-open');
@@ -396,7 +399,7 @@ class egdewiz{
         this.element.classList.remove('edgy-close');
     }
 
-    wizclose(){
+    wizclose(direct = false){
         this.open = false;
         switch (this.args.position) {
             case 'left':
@@ -438,8 +441,8 @@ class egdewiz{
     }
 
     wiztoggle(){
-        if(this.open)   this.wizclose();
-        else            this.wizopen();
+        if(this.open)   this.wizclose(true);
+        else            this.wizopen(true);
     }
 
     /**
@@ -447,7 +450,7 @@ class egdewiz{
     */
     touchstart(eve, touch = true){
         // dispatch Event wizstart
-        this.element.dispatchEvent(new Event('edgewiz.start'));
+        this.element.dispatchEvent(new Event('_edgewiz.start'));
         // Event prevent Default
         eve.preventDefault();
 
@@ -468,7 +471,7 @@ class egdewiz{
     touchmove(eve, touch = true){
         if(this.swipe){
             // dispatch Event wizmove
-            this.element.dispatchEvent(new Event('edgewiz.move'));
+            this.element.dispatchEvent(new Event('_edgewiz.move'));
             // Event prevent Default
             eve.preventDefault();
 
@@ -488,7 +491,7 @@ class egdewiz{
     }
     touchend(eve, touch = true){
         // dispatch Event wizstop
-        this.element.dispatchEvent(new Event('edgewiz.stop'));
+        this.element.dispatchEvent(new Event('_edgewiz.stop'));
         // Event prevent Default
         eve.preventDefault();
 
