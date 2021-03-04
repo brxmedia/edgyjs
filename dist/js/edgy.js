@@ -1,13 +1,34 @@
 'use strict';
+/**
+ * EDGYJS - Plugin
+ * @version 0.1.0
+ * @author Patrick Born
+ */
 
+
+/**
+ * Default argutments for edgy
+ */
 var defaults = {
     position: 'left',
     trigger: '.edgy-btn',
-    handle: 15,
-    parent: ''
+    handle: '.75rem',
+    parent: null,
+    fastExecution: 250,
+    fastDistance: 50
 };
 
+/**
+ * **EDGY JS**
+ * 
+ * The ultimate edgenavigation Plugin. Built a sidebarnavigation or a header swipedown navigation as flexible as you want!
+ */
 class edgy{
+    /**
+     * 
+     * @param element Picks the first Element of a classname or picks a elementByID!
+     * @param args The edgyjs argument list. You will the list of default and your configuration abillities in the documentation.
+     */
     constructor(element, args = {}){
         this.element = document.querySelector(element);
         if(this.element == null || typeof(this.element) == 'undefined') throw Error("Element not found!\n\nThe element '" + element + "' you provided to edgy was not found in the DOM!");
@@ -16,16 +37,13 @@ class edgy{
         this.args = Object.assign({}, defaults, args);
         this.validateArgs();
 
-        this.init();
-    }
-
-    init(){
-        this.addEvents();
         this.prepairDOM();
+        this.addEvents();
 
-
-        var obj_edgewiz = new egdewiz(this.element,true);
+        // launch edgewiz
+        new egdewiz(this.element, this.args, true);
     }
+
     /**
      * Validating all Arguments a user can potentialy transmit wrong
      */
@@ -34,8 +52,8 @@ class edgy{
         this.args.handle = parseFloat(this.args.handle, 10);
 
         let handleUnit = wholeHandle.substring(String(this.args.handle).length, wholeHandle.length);
-        this.handleUnit = 'px';
-        if(handleUnit.length >= 1 && (handleUnit == '%' || handleUnit == 'px' || handleUnit == 'em' || handleUnit == 'rem')) this.handleUnit = handleUnit;
+        this.args.handleUnit = 'px';
+        if(handleUnit.length >= 1 && (handleUnit == '%' || handleUnit == 'px' || handleUnit == 'em' || handleUnit == 'rem')) this.args.handleUnit = handleUnit;
 
         if(isNaN(this.args.handle)) throw TypeError("Wrong data type!\n\nThe argument - handle has to be of type 'number', not of type '"+ typeof(this.args.handle) +"'!");
 
@@ -50,11 +68,34 @@ class edgy{
             let wrapped = '<nav>'+ cache +'</nav>';
             this.element.innerHTML = wrapped;
         }
+
+        // add shadow
+        if(this.args.parent == null) this.args.parent = this.element.parentElement;
+        var shadowFound = false;
+        for (let i = 0; i < this.args.parent.children.length; i++) {
+            if(this.args.parent.children[i].classList.contains('edgy-shadow')){
+                shadowFound = true;
+                this.args.shadow = this.args.parent.children[i];
+            }
+        }
+        if(!shadowFound){
+            this.args.shadow = document.createElement("div");
+            this.args.shadow.classList.add('edgy-shadow');
+            this.args.parentNode.appendChild(this.args.shadow);
+        }
+        this.args.shadow.style.display = 'none';
+
+
         // add class bases on position
         if(!this.element.classList.contains('edgy')) this.element.classList.add('edgy');
         this.element.classList.add('edgy-'+ this.args.position);
 
-        this.element.style.width = this.args.handle + this.handleUnit;
+        if(this.args.position == 'left' || this.args.position == 'right'){
+            this.element.style.width = this.args.handle + this.args.handleUnit;
+        }
+        else{
+            this.element.style.height = this.args.handle + this.args.handleUnit;
+        }
     }
     /**
      * Add EventListeners for edgewiz and even more custom events.
@@ -62,13 +103,13 @@ class edgy{
     addEvents(){
         // get all DOM Elements for element
         this.element.addEventListener('edgewiz.start', function(){
-            console.log('EDGEWIZ Start is fired');
+            // console.log('EDGEWIZ Start is fired');
         });
         this.element.addEventListener('edgewiz.move', function(){
-            console.log('EDGEWIZ Move is fired');
+            // console.log('EDGEWIZ Move is fired');
         });
         this.element.addEventListener('edgewiz.stop', function(){
-            console.log('EDGEWIZ Stop is fired');
+            // console.log('EDGEWIZ Stop is fired');
         });
     }
 }
@@ -84,10 +125,11 @@ class egdewiz{
      * @param {*} debug Boolean if theres a debug view or not.
      * @param {*} debugElement The elementID the debug will be placed in.
      */
-    constructor(element, debug = false, debugElement = 'edgewizDebug'){
+    constructor(element, args, debug = false, debugElement = 'edgewizDebug'){
         this.mousesupport = true;
 
         this.element = element;
+        this.args = args;
         this.debug = debug;
         this.debugElement = document.getElementById(debugElement);
 
@@ -98,13 +140,19 @@ class egdewiz{
         this.stop = {x:0,y:0};
 
         this.nav = this.element.children[0];
-        this.navWidth = this.nav.offsetWidth;
-
-        console.log(this.nav);
+        if(this.args.position == 'left' || this.args.position == 'right'){
+            this.navSize = this.nav.offsetWidth;
+        }
+        else{
+            this.navSize = this.nav.offsetHeight;
+        }
+        
 
         this.element.addEventListener("touchstart", eve => this.touchstart(eve));
         this.element.addEventListener("touchmove", eve => this.touchmove(eve));
         this.element.addEventListener("touchend", eve => this.touchend(eve));
+
+        this.args.shadow.addEventListener("click", e => this.wizclose());
 
         if(this.mousesupport){
             this.element.addEventListener('mousedown',eve => this.touchstart(eve,false));
@@ -115,41 +163,253 @@ class egdewiz{
 
     wizstart(){
         this.element.classList.add('edgy-swipe');
-    }
-    wizmove(){
-        if(this.status == 'close'){
-            let move = 0;
-            if(this.dist.x >= this.navWidth)    move = this.navWidth;
-            else                                move = this.dist.x;
-    
-            this.nav.style.transform = 'translateX('+ move +'px)';
+        this.args.parent.classList.add('edgy-swipe');
+
+        this.startSwipe = new Date().getTime();
+
+        // SHADOW
+        if(!this.open){
+            this.args.shadow.style.opacity = 0;
         }
         else{
-            let move = 0;
-            if(this.dist.x <= this.navWidth)    move = this.navWidth;
-            else                                move = this.dist.x;
-    
-            this.nav.style.transform = 'translateX('+ (this.navWidth - move) +'px)';
+            this.args.shadow.style.opacity = 1;
         }
+        this.args.shadow.style.display = 'block';
+    }
+    wizmove(){
+        switch (this.args.position) {
+            case 'left':
+                if(!this.open){
+                    var move = 0;
+                    if(this.dist.x >= this.navSize)     move = this.navSize;
+                    else if(this.dist.x <= 0)           move = 0;
+                    else                                move = this.dist.x;
+                }
+                else{
+                    var move = this.navSize;
+                    if(this.dist.x >= 0)                            move = this.navSize;
+                    else if(this.dist.x <= (this.navSize * -1))     move = 0;
+                    else                                            move = this.navSize + this.dist.x;
+                }
+                this.element.style.transform = 'translateX('+ (move) +'px)';
+                break;
+            case 'right':
+                if(!this.open){
+                    var move = 0;
+                    if(this.dist.x <= (this.navSize * -1))  move = (this.navSize * -1);
+                    else if(this.dist.x >= 0)               move = 0;
+                    else                                    move = this.dist.x;
+                }
+                else{
+                    var move = (this.navSize * -1);
+                    if(this.dist.x <= 0)                    move = (this.navSize * -1);
+                    else if(this.dist.x >= this.navSize)    move = 0;
+                    else                                    move = (this.navSize * -1) + this.dist.x;
+                }
+                this.element.style.transform = 'translateX('+ (move) +'px)';
+                break;
+            case 'top':
+                if(!this.open){
+                    var move = 0;
+                    if(this.dist.y >= this.navSize)     move = this.navSize;
+                    else if(this.dist.y <= 0)           move = 0;
+                    else                                move = this.dist.y;
+                }
+                else{
+                    var move = this.navSize;
+                    if(this.dist.y >= 0)                            move = this.navSize;
+                    else if(this.dist.y <= (this.navSize * -1))     move = 0;
+                    else                                            move = this.navSize + this.dist.y;
+                }
+                this.element.style.transform = 'translateY('+ (move) +'px)';
+                break;
+            case 'bottom':
+                if(!this.open){
+                    var move = 0;
+                    if(this.dist.y <= (this.navSize * -1))  move = (this.navSize * -1);
+                    else if(this.dist.y >= 0)               move = 0;
+                    else                                    move = this.dist.y;
+                }
+                else{
+                    var move = (this.navSize * -1);
+                    if(this.dist.y <= 0)                    move = (this.navSize * -1);
+                    else if(this.dist.y >= this.navSize)    move = 0;
+                    else                                    move = (this.navSize * -1) + this.dist.y;
+                }
+                this.element.style.transform = 'translateY('+ (move) +'px)';
+                break;
+        
+            default:
+                if(!this.open){
+                    var move = 0;
+                    if(this.dist.x >= this.navSize)     move = this.navSize;
+                    else if(this.dist.x <= 0)           move = 0;
+                    else                                move = this.dist.x;
+                }
+                else{
+                    var move = this.navSize;
+                    if(this.dist.x >= 0)                            move = this.navSize;
+                    else if(this.dist.x <= (this.navSize * -1))     move = 0;
+                    else                                            move = this.navSize + this.dist.x;
+                }
+                this.element.style.transform = 'translateX('+ (move) +'px)';
+                break;
+        }
+
+        // SHADOW
+        if(this.args.position == 'left' || this.args.position == 'right'){
+            if(!this.open){
+                this.distPercent = this.dist.x / this.navSize;
+            }
+            else{
+                this.distPercent = 1 + this.dist.x / this.navSize;
+            }
+        }
+        else{
+            if(!this.open){
+                this.distPercent = this.dist.x / this.navSize;
+            }
+            else{
+                this.distPercent = 1 + this.dist.x / this.navSize;
+            }
+        }
+        if(this.distPercent.toFixed(2) >= 1) this.distPercent = 1;
+        else if(this.distPercent.toFixed(2) <= 0) this.distPercent = 0;
+        this.args.shadow.style.opacity = this.distPercent.toFixed(2);
     }
     wizend(){
-        if(this.dist.x >= this.navWidth / 2)    this.wizopen();
-        else                                    this.wizclose();
-
         this.element.classList.remove('edgy-swipe');
+        this.args.parent.classList.remove('edgy-swipe');
+
+        this.endSwipe = new Date().getTime();
+        let fastExecution = false;
+        if((this.endSwipe - this.startSwipe) <= this.args.fastExecution) fastExecution = true;
+
+        switch (this.args.position) {
+            case 'left':
+                if(!this.open){
+                    if(this.dist.x >= this.navSize / 2 || fastExecution && this.dist.x > this.args.fastDistance)            this.wizopen();
+                    else                                                                                                    this.wizclose();
+                }
+                else{
+                    if(this.dist.x <= (this.navSize * -1) / 2 || fastExecution && this.dist.x < -this.args.fastDistance)    this.wizclose();
+                    else                                                                                                    this.wizopen();
+                }
+                break;
+            case 'right':
+                if(!this.open){
+                    if(this.dist.x <= (this.navSize * -1) / 2 || fastExecution && this.dist.x < -this.args.fastDistance)    this.wizopen();
+                    else                                                                                                    this.wizclose();
+                }
+                else{
+                    if(this.dist.x >= this.navSize / 2 || fastExecution && this.dist.x > this.args.fastDistance)            this.wizclose();
+                    else                                                                                                    this.wizopen();
+                }
+                break;
+            case 'top':
+                if(!this.open){
+                    if(this.dist.y >= this.navSize / 2 || fastExecution && this.dist.y > this.args.fastDistance)            this.wizopen();
+                    else                                                                                                    this.wizclose();
+                }
+                else{
+                    if(this.dist.y <= (this.navSize * -1) / 2 || fastExecution && this.dist.y < -this.args.fastDistance)    this.wizclose();
+                    else                                                                                                    this.wizopen();
+                }
+                break;
+                break;
+            case 'bottom':
+                if(!this.open){
+                    if(this.dist.y <= (this.navSize * -1) / 2 || fastExecution && this.dist.y < -this.args.fastDistance)    this.wizopen();
+                    else                                                                                                    this.wizclose();
+                }
+                else{
+                    if(this.dist.y >= this.navSize / 2 || fastExecution && this.dist.y > this.args.fastDistance)            this.wizclose();
+                    else                                                                                                    this.wizopen();
+                }
+                break;
+        
+            default:
+                if(!this.open){
+                    if(this.dist.x >= this.navSize / 2 || fastExecution && this.dist.x > this.args.fastDistance)            this.wizopen();
+                    else                                                                                                    this.wizclose();
+                }
+                else{
+                    if(this.dist.x <= (this.navSize * -1) / 2 || fastExecution && this.dist.x < -this.args.fastDistance)    this.wizclose();
+                    else                                                                                                    this.wizopen();
+                }
+                break;
+        }
     }
 
     wizopen(){
-        this.status = 'open';
-        this.nav.style.transform = 'translateX('+ this.navWidth +'px)';
+        this.open = true;
+        switch (this.args.position) {
+            case 'left':
+                this.element.style.transform = 'translateX('+ this.navSize +'px)';
+                break;
+            case 'right':
+                this.element.style.transform = 'translateX(-'+ this.navSize +'px)';
+                break;
+            case 'top':
+                this.element.style.transform = 'translateY('+ this.navSize +'px)';
+                break;
+            case 'bottom':
+                this.element.style.transform = 'translateY(-'+ this.navSize +'px)';
+                break;
+        
+            default:
+                this.element.style.transform = 'translateX('+ this.navSize +'px)';
+                break;
+        }
+
+        // SHADOW
+        var i = 0;
+        var val = setInterval(() => {
+            i++;
+            this.args.shadow.style.opacity = parseFloat(this.args.shadow.style.opacity) + 0.01;
+            if(this.args.shadow.style.opacity >= 1 || i > 200){
+                clearInterval(val);
+            }
+        }, 5);
+        
         this.element.classList.add('edgy-open');
+        this.args.parent.classList.add('edgy-open');
         this.element.classList.remove('edgy-close');
     }
 
     wizclose(){
-        this.status = 'close';
-        this.nav.style.transform = 'translateX(0px)';
+        this.open = false;
+        switch (this.args.position) {
+            case 'left':
+                this.element.style.transform = 'translateX(0px)';
+                break;
+            case 'right':
+                this.element.style.transform = 'translateX(0px)';
+                break;
+            case 'top':
+                this.element.style.transform = 'translateY(0px)';
+                break;
+            case 'bottom':
+                this.element.style.transform = 'translateY(0px)';
+                break;
+        
+            default:
+                this.element.style.transform = 'translateX(0px)';
+                break;
+        }
+
+        // SHADOW
+        var i = 0;
+        var val = setInterval(() => {
+            i++;
+            this.args.shadow.style.opacity = parseFloat(this.args.shadow.style.opacity) - 0.01;
+            if(this.args.shadow.style.opacity <= 0 || i > 200){
+                clearInterval(val);
+            }
+        }, 5);
+        
         this.element.classList.add('edgy-close');
+        this.args.parent.classList.remove('edgy-open');
         this.element.classList.remove('edgy-open');
     }
 
@@ -220,5 +480,11 @@ class egdewiz{
 }
 
 var obj_edgy = new edgy('#sidebar',{
-    handle: '.75rem'
+    position: 'left'
+});
+var obj_edgy = new edgy('#sidebarBottom',{
+    position: 'bottom'
+});
+var obj_edgy = new edgy('#sidebar2',{
+    position: 'left'
 });
