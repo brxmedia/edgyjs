@@ -1,9 +1,9 @@
 'use strict';
-/**
+/*!*
  * EDGYJS - Plugin
  * @version 0.1.0
  * @author Patrick Born
- */
+ !*/
 
 
 /**
@@ -478,13 +478,3 @@ class egdewiz{
         if(this.debug)  this.debugElement.innerHTML = "touchend bei X-Koordinate: " + this.stop.x + "px Y-Koordinate: " + this.stop.y + "px";
     }
 }
-
-var obj_edgy = new edgy('#sidebar',{
-    position: 'left'
-});
-var obj_edgy = new edgy('#sidebarBottom',{
-    position: 'bottom'
-});
-var obj_edgy = new edgy('#sidebar2',{
-    position: 'left'
-});
