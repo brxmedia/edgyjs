@@ -3,4 +3,9 @@
   height: 350px;
   overflow: hidden;
 }
+
+.edgy-example-box-content {
+  height: 100%;
+  overflow-y: auto;
+}
 /*# sourceMappingURL=demo.css.map */
