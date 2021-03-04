@@ -259,18 +259,18 @@ class egdewiz{
         // SHADOW
         if(this.args.position == 'left' || this.args.position == 'right'){
             if(!this.open){
-                this.distPercent = this.dist.x / this.navSize;
+                this.distPercent = Math.abs(this.dist.x) / this.navSize;
             }
             else{
-                this.distPercent = 1 + this.dist.x / this.navSize;
+                this.distPercent = 1 - Math.abs(this.dist.x) / this.navSize;
             }
         }
         else{
             if(!this.open){
-                this.distPercent = this.dist.x / this.navSize;
+                this.distPercent = Math.abs(this.dist.y) / this.navSize;
             }
             else{
-                this.distPercent = 1 + this.dist.x / this.navSize;
+                this.distPercent = 1 - Math.abs(this.dist.y) / this.navSize;
             }
         }
         if(this.distPercent.toFixed(2) >= 1) this.distPercent = 1;
@@ -366,7 +366,8 @@ class egdewiz{
         var i = 0;
         var val = setInterval(() => {
             i++;
-            this.args.shadow.style.opacity = parseFloat(this.args.shadow.style.opacity) + 0.01;
+            this.args.shadow.style.opacity = parseFloat(this.args.shadow.style.opacity) + 0.02;
+            if(this.args.shadow.style.opacity >= 1) this.args.shadow.style.opacity = 1;
             if(this.args.shadow.style.opacity >= 1 || i > 200){
                 clearInterval(val);
             }
@@ -402,8 +403,10 @@ class egdewiz{
         var i = 0;
         var val = setInterval(() => {
             i++;
-            this.args.shadow.style.opacity = parseFloat(this.args.shadow.style.opacity) - 0.01;
+            this.args.shadow.style.opacity = parseFloat(this.args.shadow.style.opacity) - 0.02;
+            if(this.args.shadow.style.opacity <= 0) this.args.shadow.style.opacity = 0;
             if(this.args.shadow.style.opacity <= 0 || i > 200){
+                this.args.shadow.style.display = 'none';
                 clearInterval(val);
             }
         }, 5);
