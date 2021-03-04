@@ -116,15 +116,27 @@ class edgy{
             this._edgewiz.wiztoggle();
         });
 
-        // get all DOM Elements for element
-        this.element.addEventListener('_edgewiz.start', function(){
-            // console.log('_EDGEWIZ Start is fired');
+        // get all Events for this DOM Element
+        this.element.addEventListener('edgewiz.start', function(){
+            // console.log('EDGEWIZ Start is fired');
         });
-        this.element.addEventListener('_edgewiz.move', function(){
-            // console.log('_EDGEWIZ Move is fired');
+        this.element.addEventListener('edgewiz.move', function(){
+            // console.log('EDGEWIZ Move is fired');
         });
-        this.element.addEventListener('_edgewiz.stop', function(){
-            // console.log('_EDGEWIZ Stop is fired');
+        this.element.addEventListener('edgewiz.stop', function(){
+            // console.log('EDGEWIZ Stop is fired');
+        });
+        this.element.addEventListener('edgewiz.open', function(){
+            console.log('EDGEWIZ Open is fired');
+        });
+        this.element.addEventListener('edgewiz.opened', function(){
+            console.log('EDGEWIZ Opened is fired');
+        });
+        this.element.addEventListener('edgewiz.close', function(){
+            console.log('EDGEWIZ Close is fired');
+        });
+        this.element.addEventListener('edgewiz.closed', function(){
+            console.log('EDGEWIZ Closed is fired');
         });
     }
 }
@@ -357,6 +369,8 @@ class egdewiz{
     }
 
     wizopen(direct = false){
+        // dispatch Event wizopen
+        this.element.dispatchEvent(new Event('edgewiz.open'));
         this.open = true;
         switch (this.args.position) {
             case 'left':
@@ -384,6 +398,8 @@ class egdewiz{
             this.args.shadow.style.opacity = parseFloat(this.args.shadow.style.opacity) + 0.02;
             if(this.args.shadow.style.opacity >= 1) this.args.shadow.style.opacity = 1;
             if(this.args.shadow.style.opacity >= 1 || i > 200){
+                // dispatch Event wizopened
+                this.element.dispatchEvent(new Event('edgewiz.opened'));
                 clearInterval(val);
             }
         }, 5);
@@ -400,6 +416,8 @@ class egdewiz{
     }
 
     wizclose(direct = false){
+        // dispatch Event wizclose
+        this.element.dispatchEvent(new Event('edgewiz.close'));
         this.open = false;
         switch (this.args.position) {
             case 'left':
@@ -428,6 +446,8 @@ class egdewiz{
             if(this.args.shadow.style.opacity <= 0) this.args.shadow.style.opacity = 0;
             if(this.args.shadow.style.opacity <= 0 || i > 200){
                 this.args.shadow.style.display = 'none';
+                // dispatch Event wizclosed
+                this.element.dispatchEvent(new Event('edgewiz.closed'));
                 clearInterval(val);
             }
         }, 5);
@@ -450,7 +470,7 @@ class egdewiz{
     */
     touchstart(eve, touch = true){
         // dispatch Event wizstart
-        this.element.dispatchEvent(new Event('_edgewiz.start'));
+        this.element.dispatchEvent(new Event('edgewiz.start'));
         // Event prevent Default
         eve.preventDefault();
 
@@ -471,7 +491,7 @@ class egdewiz{
     touchmove(eve, touch = true){
         if(this.swipe){
             // dispatch Event wizmove
-            this.element.dispatchEvent(new Event('_edgewiz.move'));
+            this.element.dispatchEvent(new Event('edgewiz.move'));
             // Event prevent Default
             eve.preventDefault();
 
@@ -491,7 +511,7 @@ class egdewiz{
     }
     touchend(eve, touch = true){
         // dispatch Event wizstop
-        this.element.dispatchEvent(new Event('_edgewiz.stop'));
+        this.element.dispatchEvent(new Event('edgewiz.stop'));
         // Event prevent Default
         eve.preventDefault();
 
