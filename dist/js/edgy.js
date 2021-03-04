@@ -81,7 +81,7 @@ class edgy{
         if(!shadowFound){
             this.args.shadow = document.createElement("div");
             this.args.shadow.classList.add('edgy-shadow');
-            this.args.parentNode.appendChild(this.args.shadow);
+            this.args.parent.appendChild(this.args.shadow);
         }
         this.args.shadow.style.display = 'none';
 
