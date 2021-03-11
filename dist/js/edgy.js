@@ -289,7 +289,12 @@ class egdewiz{
                 this.distPercent = Math.abs(this.dist.x) / this.navSize;
             }
             else{
-                this.distPercent = 1 - Math.abs(this.dist.x) / this.navSize;
+                if(this.dist.x < 0 && this.args.position == 'left' || this.dist.x > 0 && this.args.position == 'right'){
+                    this.distPercent = 1 - Math.abs(this.dist.x) / this.navSize;
+                }
+                else{
+                    this.distPercent = 1;
+                }
             }
         }
         else{
@@ -297,7 +302,12 @@ class egdewiz{
                 this.distPercent = Math.abs(this.dist.y) / this.navSize;
             }
             else{
-                this.distPercent = 1 - Math.abs(this.dist.y) / this.navSize;
+                if(this.dist.y < 0 && this.args.position == 'top' || this.dist.y > 0 && this.args.position == 'bottom'){
+                    this.distPercent = 1 - Math.abs(this.dist.y) / this.navSize;
+                }
+                else{
+                    this.distPercent = 1;
+                }
             }
         }
         if(this.distPercent.toFixed(2) >= 1) this.distPercent = 1;
