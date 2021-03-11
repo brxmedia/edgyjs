@@ -380,8 +380,8 @@ class egdewiz{
 
     wizopen(direct = false){
         // dispatch Event wizopen
-        this.element.dispatchEvent(new Event('edgewiz.open'));
-        this.open = true;
+        if(!this.open) this.element.dispatchEvent(new Event('edgewiz.open'));
+
         switch (this.args.position) {
             case 'left':
                 this.element.style.transform = 'translateX('+ this.navSize +'px)';
@@ -409,7 +409,7 @@ class egdewiz{
             if(this.args.shadow.style.opacity >= 1) this.args.shadow.style.opacity = 1;
             if(this.args.shadow.style.opacity >= 1 || i > 200){
                 // dispatch Event wizopened
-                this.element.dispatchEvent(new Event('edgewiz.opened'));
+                if(!this.open) this.element.dispatchEvent(new Event('edgewiz.opened'));
                 clearInterval(val);
             }
         }, 5);
@@ -417,6 +417,8 @@ class egdewiz{
             if(this.args.shadow.style.display != 'block') this.args.shadow.style.display = 'block';
             if(this.args.shadow.style.opacity != 1) this.args.shadow.style.opacity = 1;
         }
+        
+        this.open = true;
         this.element.classList.add('edgy-open');
         if(this.args.parent.tagName != 'body'){
             document.body.classList.add('edgy-open');
@@ -427,8 +429,8 @@ class egdewiz{
 
     wizclose(direct = false){
         // dispatch Event wizclose
-        this.element.dispatchEvent(new Event('edgewiz.close'));
-        this.open = false;
+        if(this.open) this.element.dispatchEvent(new Event('edgewiz.close'));
+
         switch (this.args.position) {
             case 'left':
                 this.element.style.transform = 'translateX(0px)';
@@ -457,11 +459,12 @@ class egdewiz{
             if(this.args.shadow.style.opacity <= 0 || i > 200){
                 this.args.shadow.style.display = 'none';
                 // dispatch Event wizclosed
-                this.element.dispatchEvent(new Event('edgewiz.closed'));
+                if(this.open) this.element.dispatchEvent(new Event('edgewiz.closed'));
                 clearInterval(val);
             }
         }, 5);
         
+        this.open = false;
         this.element.classList.add('edgy-close');
         if(this.args.parent.tagName != 'body'){
             document.body.classList.remove('edgy-open');
