@@ -117,19 +117,22 @@ class edgy{
     addEvents(){
         // add toggle function on trigger button click
         if(document.querySelector(this.args.toggle) != null)
-            document.querySelector(this.args.toggle).addEventListener('click', () => {
+            document.querySelector(this.args.toggle).addEventListener('click', (e) => {
+                e.preventDefault();
                 this._edgewiz.wiztoggle();
             });
         // add close function on trigger button click
         if(document.querySelector(this.args.close) != null)
-        document.querySelector(this.args.close).addEventListener('click', () => {
-            this._edgewiz.wizclose(true);
-        });
+            document.querySelector(this.args.close).addEventListener('click', (e) => {
+                e.preventDefault();
+                this._edgewiz.wizclose(true);
+            });
         // add open function on trigger button click
         if(document.querySelector(this.args.open) != null)
-        document.querySelector(this.args.open).addEventListener('click', () => {
-            this._edgewiz.wizopen(true);
-        });
+            document.querySelector(this.args.open).addEventListener('click', (e) => {
+                e.preventDefault();
+                this._edgewiz.wizopen(true);
+            });
 
         // get all Events for this DOM Element
         this.element.addEventListener('edgewiz.start', function(){
