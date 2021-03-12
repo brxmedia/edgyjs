@@ -8,9 +8,12 @@
     <title>egdyjs</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="demo.min.css">
-    <link rel="stylesheet" href="../dist/css/edgy.min.css">
+    <link rel="stylesheet" href="../css/edgy.min.css">
 </head>
 <body>
+    <div id="edgy">
+        https://brxmedia.de/img/logo.png
+    </div>
     <header class="bg-primary">
         <div class="container">
             <div class="row">
@@ -92,8 +95,9 @@
         </div>
     </div>
 
-    <script src="../dist/js/edgy.js"></script>
+    <script src="../js/edgy.js"></script>
     <script>
+        var obj_edgy = new edgy('#edgy',{});
         var obj_edgy1 = new edgy('#sidebar',{
             position: 'left'
         });
