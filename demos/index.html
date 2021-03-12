@@ -7,27 +7,65 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <title>egdyjs</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" integrity="sha512-vswe+cgvic/XBoF1OcM/TeJ2FW0OofqAVdCZiEYkd6dwGXthvkSFWOoGGJgS2CW70VK5dQM5Oh+7ne47s74VTg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/toolbar/prism-toolbar.min.css" integrity="sha512-DSAA0ziYwggOJ3QyWFZhIaU8bSwQLyfnyIrmShRLBdJMtiYKT7Ju35ujBCZ6ApK3HURt34p2xNo+KX9ebQNEPQ==" crossorigin="anonymous" />
     <link rel="stylesheet" href="demo.min.css">
     <link rel="stylesheet" href="../css/edgy.min.css">
 </head>
 <body>
     <div id="edgy">
-        <header class="p-3 bg-mainly">
+        <header class="p-4 bg-mainly">
             <img src="https://brxmedia.de/img/logo.png" alt="" class="w-100">
         </header>
-    </div>
-    <header class="bg-primary">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <button class="btn btn-primary edgy-btn">
-                        TOGGLE
-                    </button>
-                </div>
+        <nav>
+            <div class="list-group list-group-flush">
+                <a href="https://github.com/brxmedia" target="_blank" class="list-group-item list-group-item-action">
+                    <h5 class="mb-1"><i class="fab fa-github"></i> brxmedia</h5>
+                    <small>Check me out on GitHub</small>
+                </a>
             </div>
+            <div class="list-group list-group-flush">
+                <a href="https://github.com/brxmedia/edgyjs/fork" target="_blank" class="list-group-item list-group-item-action">
+                    <h5 class="mb-1"><i class="fas fa-code-branch"></i> edgyjs</h5>
+                    <small>Fork <strong>edgyjs</strong> on GitHub</small>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="bg-primary text-light py-5">
+        <div class="container my-5 py-5">
+            <h1 class="display-1">edgyjs</h1>
+            <p class="lead">a lightweight - dead simple javascript plugin to build your own edge navigations base on touch.</p>
         </div>
     </header>
+
+    <nav class="bg-mainly">
+        <div class="container d-flex justify-content-end py-3">
+            <a href="" class="edgy-toggle">toggle</a>
+            <a href="https://github.com/brxmedia/edgyjs/fork" target="_blank" class="btn btn-link text-light">
+                <i class="fas fa-code-branch"></i> Fork <strong>edgyjs</strong> on GitHub
+            </a>
+        </div>
+    </nav>
+
     <div class="container mt-5">
+        <div class="row mb-2">
+            <div class="col">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link edgy-ed-toggle">Toggle all</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link edgy-ed-open">Open all</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link edgy-ed-close">Close all</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <div class="row mb-2">
             <div class="col">
                 <div class="edgy-example-box border">
@@ -62,6 +100,7 @@
                 </div> 
             </div>
         </div>
+        <pre><code class="language-css">p { color: red }</code></pre>
         <div class="row mb-2">
             <div class="col">
                 <div class="edgy-example-box border">
@@ -101,18 +140,30 @@
     <script>
         var obj_edgy = new edgy('#edgy',{});
         var obj_edgy1 = new edgy('#sidebar',{
-            position: 'left'
+            position: 'left',
+            toggle: '.edgy-ed-toggle',
+            close: '.edgy-ed-close',
+            open: '.edgy-ed-open'
         });
         var obj_edgy2 = new edgy('#sidebarBottom',{
-            position: 'bottom'
+            position: 'bottom',
+            toggle: '.edgy-ed-toggle',
+            close: '.edgy-ed-close',
+            open: '.edgy-ed-open'
         });
         var obj_edgy3 = new edgy('#sidebar2',{
-            position: 'right'
+            position: 'right',
+            toggle: '.edgy-ed-toggle',
+            close: '.edgy-ed-close',
+            open: '.edgy-ed-open'
         });
 
-        obj_edgy1.open();
+        // obj_edgy1.open();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-core.min.js" integrity="sha512-xR+IAyN+t9EBIOOJw5m83FTVMDsPd63IhJ3ElP4gmfUFnQlX9+eWGLp3P4t3gIjpo2Z1JzqtW/5cjgn+oru3yQ==" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-zc7WDnCM3aom2EziyDIRAtQg1mVXLdILE09Bo+aE1xk0AM2c2cVLfSW9NrxE5tKTX44WBY0Z2HClZ05ur9vB6A==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/toolbar/prism-toolbar.min.js" integrity="sha512-cu2C9EssrOrVXT4thyL4gz/qWyh3Lq9XbICUXYyh3zJRCSKk1J08tBKPXnsSpdpZXOliaK/OJBygw/l0twAmwA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js" integrity="sha512-bWzyGaP/f19RLeYGN6ZhDgvkS7GM0Fq23lOI1/PB3lV6I775RIDzXLxCGR4iiDGzeMsQ3lncuXUQMFP7qO9lIQ==" crossorigin="anonymous"></script>
 </body>
 </html>
