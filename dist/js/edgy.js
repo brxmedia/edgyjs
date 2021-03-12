@@ -403,13 +403,15 @@ class egdewiz{
 
         // SHADOW
         var i = 0;
+        // delayed open state
+        var delayOpen = this.open;
         var val = setInterval(async () => {
             i++;
             this.args.shadow.style.opacity = parseFloat(this.args.shadow.style.opacity) + 0.02;
             if(this.args.shadow.style.opacity >= 1) this.args.shadow.style.opacity = 1;
             if(this.args.shadow.style.opacity >= 1 || i > 200){
                 // dispatch Event wizopened
-                if(!this.open) this.element.dispatchEvent(new Event('edgewiz.opened'));
+                if(!delayOpen) this.element.dispatchEvent(new Event('edgewiz.opened'));
                 clearInterval(val);
             }
         }, 5);
@@ -452,6 +454,8 @@ class egdewiz{
 
         // SHADOW
         var i = 0;
+        // delayed open state
+        var delayOpen = this.open;
         var val = setInterval(async () => {
             i++;
             this.args.shadow.style.opacity = parseFloat(this.args.shadow.style.opacity) - 0.02;
@@ -459,7 +463,7 @@ class egdewiz{
             if(this.args.shadow.style.opacity <= 0 || i > 200){
                 this.args.shadow.style.display = 'none';
                 // dispatch Event wizclosed
-                if(this.open) this.element.dispatchEvent(new Event('edgewiz.closed'));
+                if(delayOpen) this.element.dispatchEvent(new Event('edgewiz.closed'));
                 clearInterval(val);
             }
         }, 5);
