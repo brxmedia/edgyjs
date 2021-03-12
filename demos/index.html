@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../css/edgy.min.css">
 </head>
 <body>
-    <div id="edgy">
+    <aside id="edgy">
         <header class="p-4 bg-mainly">
             <img src="https://brxmedia.de/img/logo.png" alt="" class="w-100">
         </header>
@@ -32,7 +32,7 @@
                 </a>
             </div>
         </nav>
-    </div>
+    </aside>
 
     <header class="bg-primary text-light py-5">
         <div class="container my-5 py-5">
@@ -41,7 +41,7 @@
         </div>
     </header>
 
-    <nav class="bg-mainly">
+    <nav class="bg-mainly sticky-top">
         <div class="container d-flex justify-content-end py-3">
             <a href="" class="edgy-toggle">toggle</a>
             <a href="https://github.com/brxmedia/edgyjs/fork" target="_blank" class="btn btn-link text-light">
@@ -51,7 +51,7 @@
     </nav>
 
     <div class="container mt-5">
-        <div class="row mb-2">
+        <div class="row mb-5">
             <div class="col">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
@@ -66,18 +66,16 @@
                 </ul>
             </div>
         </div>
-        <div class="row mb-2">
+
+        <h4>Edgy on the left</h4>
+        <div class="row">
             <div class="col">
-                <div class="edgy-example-box border">
-                    <div id="sidebar">
-                        <header>header</header>
+                <div class="edgy-example-box border bg-light">
+                    <aside id="edgyExample1">
                         <article>this could be a navigation of some sort</article>
-                    </div>
-                    <div id="sidebarBottom">
-                        <footer>your footer?</footer>
-                    </div>
-                    <div class="edgy-example-box-content row mx-0 py-3">
-                        <div class="col">
+                    </aside>
+                    <div class="edgy-example-box-content row mx-0 py-3 px-5">
+                        <div class="col px-5">
                             <h3>Lorem Ipsum</h3>
                             <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
                                 sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
@@ -100,18 +98,26 @@
                 </div> 
             </div>
         </div>
-        <pre><code class="language-css">p { color: red }</code></pre>
-        <div class="row mb-2">
+        <div class="row mb-5">
             <div class="col">
-                <div class="edgy-example-box border">
-                    <div id="sidebar2">
-                        <header>header</header>
+<pre class="my-0"><code class="language-js">var edgyExample1 = new edgy('#edgyExample1',{
+    position: 'left',
+    toggle: '.edgy-ed-toggle',
+    close: '.edgy-ed-close',
+    open: '.edgy-ed-open'
+});</code></pre>
+            </div>
+        </div>
+
+        <h4>Edgy on the top</h4>
+        <div class="row">
+            <div class="col">
+                <div class="edgy-example-box border bg-light">
+                    <aside id="edgyExample2">
                         <article>this could be a navigation of some sort</article>
-                        <footer>your footer?</footer>
-                    </div>
-                    <div class="edgy-shadow"></div>
-                    <div class="edgy-example-box-content row mx-0 py-3">
-                        <div class="col">
+                    </aside>
+                    <div class="edgy-example-box-content row mx-0 py-3 px-5">
+                        <div class="col px-5">
                             <h3>Lorem Ipsum</h3>
                             <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
                                 sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
@@ -132,6 +138,100 @@
                         </div>
                     </div>
                 </div> 
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col">
+<pre class="my-0"><code class="language-js">var edgyExample2 = new edgy('#edgyExample2',{
+    position: 'top',
+    toggle: '.edgy-ed-toggle',
+    close: '.edgy-ed-close',
+    open: '.edgy-ed-open'
+});</code></pre>
+            </div>
+        </div>
+
+        <h4>Edgy on the right</h4>
+        <div class="row">
+            <div class="col">
+                <div class="edgy-example-box border bg-light">
+                    <aside id="edgyExample3">
+                        <article>this could be a navigation of some sort</article>
+                    </aside>
+                    <div class="edgy-example-box-content row mx-0 py-3 px-5">
+                        <div class="col px-5">
+                            <h3>Lorem Ipsum</h3>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+                                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+                                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+                                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+                                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+                                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+                                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+                                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+                                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+                                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+                                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+                                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+                                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col">
+<pre class="my-0"><code class="language-js">var edgyExample3 = new edgy('#edgyExample3',{
+    position: 'right',
+    toggle: '.edgy-ed-toggle',
+    close: '.edgy-ed-close',
+    open: '.edgy-ed-open'
+});</code></pre>
+            </div>
+        </div>
+
+        <h4>Edgy on the bottom</h4>
+        <div class="row">
+            <div class="col">
+                <div class="edgy-example-box border bg-light">
+                    <aside id="edgyExample4">
+                        <article>this could be a navigation of some sort</article>
+                    </aside>
+                    <div class="edgy-example-box-content row mx-0 py-3 px-5">
+                        <div class="col px-5">
+                            <h3>Lorem Ipsum</h3>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+                                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+                                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+                                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+                                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+                                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+                                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+                                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+                                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+                                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+                                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+                                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+                                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col">
+<pre class="my-0"><code class="language-js">var edgyExample4 = new edgy('#edgyExample4',{
+    position: 'bottom',
+    toggle: '.edgy-ed-toggle',
+    close: '.edgy-ed-close',
+    open: '.edgy-ed-open'
+});</code></pre>
             </div>
         </div>
     </div>
@@ -139,20 +239,26 @@
     <script src="../js/edgy.js"></script>
     <script>
         var obj_edgy = new edgy('#edgy',{});
-        var obj_edgy1 = new edgy('#sidebar',{
+        var edgyExample1 = new edgy('#edgyExample1',{
             position: 'left',
             toggle: '.edgy-ed-toggle',
             close: '.edgy-ed-close',
             open: '.edgy-ed-open'
         });
-        var obj_edgy2 = new edgy('#sidebarBottom',{
-            position: 'bottom',
+        var edgyExample2 = new edgy('#edgyExample2',{
+            position: 'top',
             toggle: '.edgy-ed-toggle',
             close: '.edgy-ed-close',
             open: '.edgy-ed-open'
         });
-        var obj_edgy3 = new edgy('#sidebar2',{
+        var edgyExample3 = new edgy('#edgyExample3',{
             position: 'right',
+            toggle: '.edgy-ed-toggle',
+            close: '.edgy-ed-close',
+            open: '.edgy-ed-open'
+        });
+        var edgyExample4 = new edgy('#edgyExample4',{
+            position: 'bottom',
             toggle: '.edgy-ed-toggle',
             close: '.edgy-ed-close',
             open: '.edgy-ed-open'
