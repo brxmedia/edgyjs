@@ -3,12 +3,16 @@
  !* some description
  !* and even more!
  */
+body > .edgy {
+  z-index: 1110;
+}
+
 .edgy {
   position: absolute;
   z-index: 1090;
 }
 
-.edgy nav {
+.edgy > nav {
   position: absolute;
   overflow: hidden;
   background: #fff;
@@ -104,6 +108,7 @@
 
 body > .edgy-shadow {
   position: fixed !important;
+  z-index: 1100;
 }
 
 .edgy-shadow {
@@ -125,5 +130,10 @@ body > .edgy-shadow {
   margin-left: -.75rem;
   margin-right: -.75rem;
   margin-top: -.75rem;
+}
+
+.edgy nav > nav {
+  margin-left: -.75rem;
+  margin-right: -.75rem;
 }
 /*# sourceMappingURL=edgy.css.map */

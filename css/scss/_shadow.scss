@@ -4,6 +4,7 @@ body {
     > .edgy{
        &-shadow {
            position: fixed !important;
+           z-index: 1100;
        } 
     }
 }

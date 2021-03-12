@@ -1,10 +1,16 @@
 // SASS File - general style settings
 
+body {
+    > .edgy {
+        z-index: 1110;
+    }
+}
+
 .edgy {
     position: absolute;
     z-index: 1090;
 
-    nav {
+    > nav {
         position: absolute;
         overflow: hidden;
 
