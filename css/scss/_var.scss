@@ -1,3 +1,12 @@
 // SASS File - variable declaration
 
- $pickup: 15px;
+$light: #efefef;
+$dark: #363636;
+
+$animation-speed: .5s;
+
+$shadow-color: $dark;
+
+$btn-animation-time: $animation-speed;
+$btn-dark-color: $dark;
+$btn-light-color: $light;
