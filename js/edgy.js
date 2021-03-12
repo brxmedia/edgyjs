@@ -11,9 +11,11 @@
  */
 var defaults = {
     position: 'left',
-    trigger: '.edgy-btn',
     handle: '.75rem',
     parent: null,
+    toggle: '.edgy-toggle',
+    close: '.edgy-close',
+    open: '.edgy-open',
     fastExecution: 250,
     fastDistance: 50
 };
@@ -95,6 +97,7 @@ class edgy{
             this.args.parent.appendChild(this.args.shadow);
         }
         this.args.shadow.style.display = 'none';
+        this.args.shadow.style.opacity = 0;
 
 
         // add class bases on position
@@ -113,8 +116,19 @@ class edgy{
      */
     addEvents(){
         // add toggle function on trigger button click
-        document.querySelector(this.args.trigger).addEventListener('click', () => {
-            this._edgewiz.wiztoggle();
+        if(document.querySelector(this.args.toggle) != null)
+            document.querySelector(this.args.toggle).addEventListener('click', () => {
+                this._edgewiz.wiztoggle();
+            });
+        // add close function on trigger button click
+        if(document.querySelector(this.args.close) != null)
+        document.querySelector(this.args.close).addEventListener('click', () => {
+            this._edgewiz.wizclose(true);
+        });
+        // add open function on trigger button click
+        if(document.querySelector(this.args.open) != null)
+        document.querySelector(this.args.open).addEventListener('click', () => {
+            this._edgewiz.wizopen(true);
         });
 
         // get all Events for this DOM Element
@@ -418,7 +432,6 @@ class egdewiz{
         }, 5);
         if(direct){
             if(this.args.shadow.style.display != 'block') this.args.shadow.style.display = 'block';
-            if(this.args.shadow.style.opacity != 1) this.args.shadow.style.opacity = 1;
         }
         
         this.open = true;
