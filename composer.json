@@ -1,7 +1,7 @@
 {
     "name": "brxmedia/edgyjs",
     "description": "EDGY JS is a simple and easy to use navigaion javascript plugin.",
-    "type": "composer-plugin",
+    "type": "package",
     "license": "MIT",
     "authors": [
         {
