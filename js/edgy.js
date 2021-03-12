@@ -73,7 +73,8 @@ class edgy{
      * if edgy content is not wrapped with `<nav>` it will generate `<nav>` and settings default _styles_ and _classes_ based on parsed arguments.
      */
     prepairDOM(){
-        if(this.element.children[0].tagName != 'nav'){
+        console.log(typeof this.element.children[0])
+        if(typeof this.element.children[0] == 'undefined' || this.element.children[0].tagName != 'nav'){
             let cache = this.element.innerHTML;
             let wrapped = '<nav>'+ cache +'</nav>';
             this.element.innerHTML = wrapped;
@@ -118,13 +119,13 @@ class edgy{
 
         // get all Events for this DOM Element
         this.element.addEventListener('edgewiz.start', function(){
-            // console.log('EDGEWIZ Start is fired');
+            
         });
         this.element.addEventListener('edgewiz.move', function(){
-            // console.log('EDGEWIZ Move is fired');
+            
         });
         this.element.addEventListener('edgewiz.stop', function(){
-            // console.log('EDGEWIZ Stop is fired');
+            
         });
         this.element.addEventListener('edgewiz.open', function(){
             console.log('EDGEWIZ Open is fired');
