@@ -13,9 +13,9 @@ var defaults = {
     position: 'left',
     handle: '.75rem',
     parent: null,
-    toggle: '.edgy-toggle',
-    close: '.edgy-close',
-    open: '.edgy-open',
+    toggle: '.edgy-btn-toggle',
+    close: '.edgy-btn-close',
+    open: '.edgy-btn-open',
     fastExecution: 250,
     fastDistance: 50
 };
@@ -444,6 +444,13 @@ class egdewiz{
         }
         this.args.parent.classList.add('edgy-open');
         this.element.classList.remove('edgy-close');
+
+        if(document.querySelector(this.args.toggle) != null)
+            document.querySelector(this.args.toggle).classList.add('edgy-open');
+        if(document.querySelector(this.args.open) != null)
+            document.querySelector(this.args.open).classList.add('edgy-open');
+        if(document.querySelector(this.args.close) != null)
+            document.querySelector(this.args.close).classList.add('edgy-open');
     }
 
     wizclose(direct = false){
@@ -492,6 +499,13 @@ class egdewiz{
         }
         this.args.parent.classList.remove('edgy-open');
         this.element.classList.remove('edgy-open');
+
+        if(document.querySelector(this.args.toggle) != null)
+            document.querySelector(this.args.toggle).classList.remove('edgy-open');
+        if(document.querySelector(this.args.open) != null)
+            document.querySelector(this.args.open).classList.remove('edgy-open');
+        if(document.querySelector(this.args.close) != null)
+            document.querySelector(this.args.close).classList.remove('edgy-open');
     }
 
     wiztoggle(){

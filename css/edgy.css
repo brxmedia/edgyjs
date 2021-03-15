@@ -137,4 +137,128 @@ body > .edgy-shadow {
   margin-left: -.75rem;
   margin-right: -.75rem;
 }
+
+.edgy-btn {
+  display: block;
+  padding: 1.05rem 0;
+  width: 2.25rem;
+}
+
+.edgy-btn > .burger {
+  position: relative;
+  display: block;
+  margin-right: .20rem;
+  width: 2.05rem;
+  border-radius: .075rem;
+  height: .15rem;
+  background: #fff;
+  -webkit-transition: all 0.125s cubic-bezier(0.51, 0.94, 0.69, 1.53);
+  transition: all 0.125s cubic-bezier(0.51, 0.94, 0.69, 1.53);
+}
+
+.edgy-btn > .burger::before {
+  content: '';
+  position: absolute;
+  top: -.55rem;
+  width: 1.25rem;
+  height: .15rem;
+  border-radius: .075rem;
+  background: #fff;
+  -webkit-transform-origin: left;
+          transform-origin: left;
+  -webkit-transition: all 0.125s cubic-bezier(0.51, 0.94, 0.69, 1.53);
+  transition: all 0.125s cubic-bezier(0.51, 0.94, 0.69, 1.53);
+}
+
+.edgy-btn > .burger::after {
+  content: '';
+  position: absolute;
+  top: .55rem;
+  width: 1.85rem;
+  height: .15rem;
+  border-radius: .075rem;
+  background: #fff;
+  -webkit-transform-origin: left;
+          transform-origin: left;
+  -webkit-transition: all 0.125s cubic-bezier(0.51, 0.94, 0.69, 1.53);
+  transition: all 0.125s cubic-bezier(0.51, 0.94, 0.69, 1.53);
+}
+
+.edgy-btn:hover:not(.edgy-open) > .burger {
+  width: 2.25rem;
+  margin-right: 0rem;
+}
+
+.edgy-btn:hover:not(.edgy-open) > .burger::before, .edgy-btn:hover:not(.edgy-open) > .burger::after {
+  width: 2.25rem;
+}
+
+.edgy-btn-sm {
+  padding: .84375rem 0;
+  width: 1.8125rem;
+}
+
+.edgy-btn-sm .burger {
+  margin-right: .20rem;
+  width: 1.6125rem;
+  border-radius: .075rem;
+  height: .125rem;
+}
+
+.edgy-btn-sm .burger::before {
+  height: .125rem;
+  width: 1.2125rem;
+}
+
+.edgy-btn-sm .burger::after {
+  height: .125rem;
+  width: 1.5125rem;
+}
+
+.edgy-btn-sm:hover:not(.edgy-open) > .burger {
+  width: 1.8125rem;
+  margin-right: 0rem;
+}
+
+.edgy-btn-sm:hover:not(.edgy-open) > .burger::before, .edgy-btn-sm:hover:not(.edgy-open) > .burger::after {
+  width: 1.8125rem;
+}
+
+.edgy-btn.edgy-open > .burger {
+  background: transparent;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.edgy-btn.edgy-open > .burger::before {
+  top: -.783rem;
+  width: 2.25rem;
+  margin-left: .466rem;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.edgy-btn.edgy-open > .burger::after {
+  top: .783rem;
+  width: 2.25rem;
+  margin-left: .466rem;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+.edgy-btn.edgy-open.edgy-btn-sm > .burger::before {
+  top: -.65rem;
+  width: 1.8125rem;
+  margin-left: .375rem;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.edgy-btn.edgy-open.edgy-btn-sm > .burger::after {
+  top: .65rem;
+  width: 1.8125rem;
+  margin-left: .375rem;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
 /*# sourceMappingURL=edgy.css.map */

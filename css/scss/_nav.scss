@@ -12,4 +12,131 @@
             margin-right: -.75rem;
         }
     }
+
+    &-btn {
+        display: block;
+        padding: 1.05rem 0;
+        width: 2.25rem;
+
+
+        > .burger {
+            position: relative;
+            display: block;
+            margin-right: .20rem;
+            width: 2.05rem;
+            border-radius: .075rem;
+            height: .15rem;
+            background: #fff;
+
+            transition: all .125s cubic-bezier(.51,.94,.69,1.53);
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: -.55rem;
+                width: 1.25rem;
+                height: .15rem;
+                border-radius: .075rem;
+                background: #fff;
+
+                transform-origin: left;
+                transition: all .125s cubic-bezier(.51,.94,.69,1.53);
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: .55rem;
+                width: 1.85rem;
+                height: .15rem;
+                border-radius: .075rem;
+                background: #fff;
+
+                transform-origin: left;
+                transition: all .125s cubic-bezier(.51,.94,.69,1.53);
+            }
+        }
+
+        &:hover:not(.edgy-open) {
+            > .burger {
+                width: 2.25rem;
+                margin-right: 0rem;
+
+                &::before,
+                &::after {
+                    width: 2.25rem;
+                }
+            }
+        }
+
+        &-sm {
+            padding: .84375rem 0;
+            width: 1.8125rem;
+
+            .burger {
+                margin-right: .20rem;
+                width: 1.6125rem;
+                border-radius: .075rem;
+                height: .125rem;
+
+                &::before {
+                    height: .125rem;
+                    width: 1.2125rem;
+                }
+                &::after {
+                    height: .125rem;
+                    width: 1.5125rem;
+                }
+            }
+
+            &:hover:not(.edgy-open) {
+                > .burger {
+                    width: 1.8125rem;
+                    margin-right: 0rem;
+    
+                    &::before,
+                    &::after {
+                        width: 1.8125rem;
+                    }
+                }
+            }
+        }
+        
+        &.edgy-open {
+            > .burger {
+                background: transparent;
+                transform: rotate(180deg);
+
+                &::before {
+                    top: -.783rem;
+                    width: 2.25rem;
+                    margin-left: .466rem;
+                    transform: rotate(45deg);
+                }
+                &::after {
+                    top: .783rem;
+                    width: 2.25rem;
+                    margin-left: .466rem;
+                    transform: rotate(-45deg);
+                }
+            }
+            
+            &.edgy-btn-sm {
+                > .burger {
+                    &::before {
+                        top: -.65rem;
+                        width: 1.8125rem;
+                        margin-left: .375rem;
+                        transform: rotate(45deg);
+                    }
+                    &::after {
+                        top: .65rem;
+                        width: 1.8125rem;
+                        margin-left: .375rem;
+                        transform: rotate(-45deg);
+                    }
+                }
+            }
+        }
+    }
 }
