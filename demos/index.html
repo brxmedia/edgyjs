@@ -16,6 +16,9 @@
 <body>
     <aside id="edgy">
         <header class="p-4 bg-mainly">
+            <a href="#" class="edgy-btn edgy-btn-sm edgy-btn-close">
+                <span class="burger"></span>
+            </a>
             <img src="https://brxmedia.de/img/logo.png" alt="" class="w-100">
         </header>
         <nav>
@@ -42,9 +45,18 @@
     </header>
 
     <nav class="bg-mainly sticky-top shadow">
-        <div class="container d-flex justify-content-end py-3">
-            <a href="" class="edgy-toggle">toggle</a>
-            <a href="https://github.com/brxmedia/edgyjs/fork" target="_blank" class="btn btn-link text-light">
+        <div class="container d-flex justify-content-between py-3">
+            <nav class="d-flex">
+                <a href="#" class="edgy-btn edgy-btn-sm edgy-btn-toggle">
+                    <span class="burger"></span>
+                </a>
+                <div class="btn-group ms-4">
+                    <a href="#" class="btn btn-sm btn-outline-light edgy-ed-toggle">Toggle all</a>
+                    <a href="#" class="btn btn-sm btn-light edgy-ed-open">Open all</a>
+                    <a href="#" class="btn btn-sm btn-outline-secondary edgy-ed-close">Close all</a>
+                </div>
+            </nav>
+            <a href="https://github.com/brxmedia/edgyjs/fork" target="_blank" class="btn btn-sm btn-link text-light d-none d-md-inline-block">
                 <i class="fas fa-code-branch"></i> Fork <strong>edgyjs</strong> on GitHub
             </a>
         </div>
