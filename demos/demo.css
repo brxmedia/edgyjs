@@ -4,6 +4,7 @@
 
 .bg-primary {
   background-color: #31a3dd !important;
+  background: linear-gradient(135deg, #47ade1 0%, #1b77a6 100%);
 }
 
 body {

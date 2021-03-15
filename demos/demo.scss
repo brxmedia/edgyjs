@@ -3,6 +3,7 @@
 }
 .bg-primary {
     background-color: #31a3dd !important;
+    background: linear-gradient(135deg, lighten(#31a3dd, 5%) 0%, darken(#31a3dd, 15%) 100%);
 }
 body {
     background-color: #eeeeed;
