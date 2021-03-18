@@ -140,8 +140,9 @@ body > .edgy-shadow {
 
 .edgy-btn {
   display: block;
-  padding: 1.05rem 0;
+  padding: 1.125rem 0;
   width: 2.25rem;
+  overflow: hidden;
 }
 
 .edgy-btn > .burger {
@@ -224,29 +225,31 @@ body > .edgy-shadow {
   width: 1.8125rem;
 }
 
-.edgy-btn.edgy-open > .burger {
-  background: transparent;
-  -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
+.edgy-btn:hover, .edgy-btn.edgy-open {
+  background: rgba(255, 255, 255, 0.2);
 }
 
-.edgy-btn.edgy-open > .burger::before {
-  top: -.783rem;
+.edgy-btn:hover > .burger, .edgy-btn.edgy-open > .burger {
+  width: 0;
+}
+
+.edgy-btn:hover > .burger::before, .edgy-btn.edgy-open > .burger::before {
+  top: -.72049512883486596495094990736796rem;
+  left: .32950487116513403504905009263204rem;
   width: 2.25rem;
-  margin-left: .466rem;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
 }
 
-.edgy-btn.edgy-open > .burger::after {
-  top: .783rem;
+.edgy-btn:hover > .burger::after, .edgy-btn.edgy-open > .burger::after {
+  top: .72049512883486596495094990736796rem;
+  left: .32950487116513403504905009263204rem;
   width: 2.25rem;
-  margin-left: .466rem;
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
 }
 
-.edgy-btn.edgy-open.edgy-btn-sm > .burger::before {
+.edgy-btn:hover.edgy-btn-sm > .burger::before, .edgy-btn.edgy-open.edgy-btn-sm > .burger::before {
   top: -.65rem;
   width: 1.8125rem;
   margin-left: .375rem;
@@ -254,7 +257,7 @@ body > .edgy-shadow {
           transform: rotate(45deg);
 }
 
-.edgy-btn.edgy-open.edgy-btn-sm > .burger::after {
+.edgy-btn:hover.edgy-btn-sm > .burger::after, .edgy-btn.edgy-open.edgy-btn-sm > .burger::after {
   top: .65rem;
   width: 1.8125rem;
   margin-left: .375rem;

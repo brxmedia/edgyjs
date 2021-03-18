@@ -15,8 +15,9 @@
 
     &-btn {
         display: block;
-        padding: 1.05rem 0;
+        padding: 1.125rem 0;
         width: 2.25rem;
+        overflow: hidden;
 
 
         > .burger {
@@ -101,22 +102,23 @@
                 }
             }
         }
-        
+        &:hover,
         &.edgy-open {
+            background: rgba(255,255,255,.2);
             > .burger {
-                background: transparent;
-                transform: rotate(180deg);
+                // background: transparent;
+                width: 0;
 
                 &::before {
-                    top: -.783rem;
+                    top: -.72049512883486596495094990736796rem;
+                    left: .32950487116513403504905009263204rem;
                     width: 2.25rem;
-                    margin-left: .466rem;
                     transform: rotate(45deg);
                 }
                 &::after {
-                    top: .783rem;
+                    top: .72049512883486596495094990736796rem;
+                    left: .32950487116513403504905009263204rem;
                     width: 2.25rem;
-                    margin-left: .466rem;
                     transform: rotate(-45deg);
                 }
             }
