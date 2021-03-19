@@ -1,0 +1,194 @@
+// SASS File - navigation style settings
+
+.edgy {
+    nav {
+        > header {
+            margin-left: -.75rem;
+            margin-right: -.75rem;
+            margin-top: -.75rem;
+        }
+        > nav {
+            margin-left: -.75rem;
+            margin-right: -.75rem;
+        }
+    }
+
+    &-btn {
+        display: block;
+        padding: calc(#{$btn-padding} + 1px) 0;
+        width: $btn-width;
+        overflow: hidden;
+
+
+        > .burger {
+            position: relative;
+            display: block;
+            margin-right: $btn-width * .1;
+            width: $btn-width * .9;
+            height: $btn-burger-thickness;
+            border-radius: .075rem;
+            background: #fff;
+
+            transition: all $btn-animation-time ease;
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: -.55rem;
+                left: 0;
+                width: $btn-width * .7;
+                height: $btn-burger-thickness;
+                border-radius: .75rem;
+                background: #fff;
+
+                transform-origin: left;
+                transition: all $btn-animation-time ease;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: .55rem;
+                left: 0;
+                width: $btn-width * .85;
+                height: $btn-burger-thickness;
+                border-radius: .75rem;
+                background: #fff;
+
+                transform-origin: left;
+                transition: all $btn-animation-time ease;
+            }
+        }
+
+        &:hover:not(.edgy-open) {
+            > .burger {
+                width: $btn-width;
+                margin-right: 0;
+
+                &::before,
+                &::after {
+                    width: $btn-width;
+                }
+            }
+        }
+
+        &-sm {
+            padding: calc(#{$btn-sm-padding} + 1px) 0;
+            width: $btn-sm-width;
+
+            .burger {
+                margin-right: $btn-sm-width * .1;
+                width: $btn-sm-width * .9;
+                border-radius: .075rem;
+                height: $btn-sm-burger-thickness;
+
+                &::before {
+                    width: $btn-sm-width * .7;
+                    height: $btn-sm-burger-thickness;
+                }
+                &::after {
+                    width: $btn-sm-width * .85;
+                    height: $btn-sm-burger-thickness;
+                }
+            }
+
+            &:hover:not(.edgy-open) {
+                > .burger {
+                    width: $btn-sm-width;
+                    margin-right: 0;
+
+                    &::before,
+                    &::after {
+                        width: $btn-sm-width;
+                    }
+                }
+            }
+        }
+
+        &-lg {
+            padding: calc(#{$btn-lg-padding} + 1px) 0;
+            width: $btn-lg-width;
+
+            .burger {
+                margin-right: $btn-lg-width * .1;
+                width: $btn-lg-width * .9;
+                border-radius: .075rem;
+                height: $btn-lg-burger-thickness;
+
+                &::before {
+                    width: $btn-lg-width * .7;
+                    height: $btn-lg-burger-thickness;
+                }
+                &::after {
+                    width: $btn-lg-width * .85;
+                    height: $btn-lg-burger-thickness;
+                }
+            }
+
+            &:hover:not(.edgy-open) {
+                > .burger {
+                    width: $btn-lg-width;
+                    margin-right: 0;
+
+                    &::before,
+                    &::after {
+                        width: $btn-lg-width;
+                    }
+                }
+            }
+        }
+        &:hover,
+        &.edgy-open {
+            background: rgba(255,255,255,.2);
+            > .burger {
+                // background: transparent;
+                width: 0 !important;
+
+                &::before {
+                    top: -$btn-burger-x-top;
+                    left: $btn-burger-x-left;
+                    width: $btn-width;
+                    transform: rotate(45deg);
+                }
+                &::after {
+                    top: $btn-burger-x-top;
+                    left: $btn-burger-x-left;
+                    width: $btn-width;
+                    transform: rotate(-45deg);
+                }
+            }
+            &.edgy-btn-sm {
+                > .burger {
+                    &::before {
+                        top: -$btn-sm-burger-x-top;
+                        left: $btn-sm-burger-x-left;
+                        width: $btn-sm-width;
+                        transform: rotate(45deg);
+                    }
+                    &::after {
+                        top: $btn-sm-burger-x-top;
+                        left: $btn-sm-burger-x-left;
+                        width: $btn-sm-width;
+                        transform: rotate(-45deg);
+                    }
+                }
+            }
+            &.edgy-btn-lg {
+                > .burger {
+                    &::before {
+                        top: -$btn-lg-burger-x-top;
+                        left: $btn-lg-burger-x-left;
+                        width: $btn-lg-width;
+                        transform: rotate(45deg);
+                    }
+                    &::after {
+                        top: $btn-lg-burger-x-top;
+                        left: $btn-lg-burger-x-left;
+                        width: $btn-lg-width;
+                        transform: rotate(-45deg);
+                    }
+                }
+            }
+        }
+    }
+}

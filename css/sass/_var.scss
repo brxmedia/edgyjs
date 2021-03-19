@@ -1,0 +1,71 @@
+// SASS File - variable declaration
+@use "sass:math";
+
+$light: #efefef;
+$dark: #363636;
+
+$animation-speed: .5s;
+
+$bootstrap-btn-padding-rem: .375;
+$bootstrap-btn-border: 1px;
+$bootstrap-btn-line-height: 1.5;
+$bootstrap-btn-font-size-rem: 1;
+
+$btn-burger-thickness-rem: .15;
+
+$bootstrap-btn-sm-padding-rem: .25;
+$bootstrap-btn-sm-border: 1px;
+$bootstrap-btn-sm-line-height: 1.5;
+$bootstrap-btn-sm-font-size-rem: .875;
+
+$btn-sm-burger-thickness-rem: .125;
+
+$bootstrap-btn-lg-padding-rem: .5;
+$bootstrap-btn-lg-border: 1px;
+$bootstrap-btn-lg-line-height: 1.5;
+$bootstrap-btn-lg-font-size-rem: 1.25;
+
+$btn-lg-burger-thickness-rem: .175;
+
+$shadow-color: $dark;
+
+
+$btn-animation-time: $animation-speed / 4;
+$btn-dark-color: $dark;
+$btn-light-color: $light;
+
+//
+// EDGY BTN
+$btn-width-calc: (2 * $bootstrap-btn-padding-rem) + ($bootstrap-btn-line-height * $bootstrap-btn-font-size-rem);
+$btn-width: $btn-width-calc * 1rem;
+$btn-burger-thickness: $btn-burger-thickness-rem * 1rem;
+$btn-padding: (($btn-width-calc - $btn-burger-thickness-rem) / 2) * 1rem;
+
+// width - opposite
+$btn-burger-x-left: ($btn-width-calc - math.sqrt(($btn-width-calc * $btn-width-calc) / 2)) / 2 * 1rem;
+// half of the opposite by full the hypotenuse
+$btn-burger-x-top: math.sqrt((($btn-width-calc / 2) * ($btn-width-calc / 2)) / 2) * 1rem;
+
+//
+// EDGY sm BTN 
+$btn-sm-width-calc: (2 * $bootstrap-btn-sm-padding-rem) + ($bootstrap-btn-sm-line-height * $bootstrap-btn-sm-font-size-rem);
+$btn-sm-width: $btn-sm-width-calc * 1rem;
+$btn-sm-burger-thickness: $btn-sm-burger-thickness-rem * 1rem;
+$btn-sm-padding: (($btn-sm-width-calc - $btn-sm-burger-thickness-rem) / 2) * 1rem;
+
+// width - opposite
+$btn-sm-burger-x-left: ($btn-sm-width-calc - math.sqrt(($btn-sm-width-calc * $btn-sm-width-calc) / 2)) / 2 * 1rem;
+// half of the opposite by full the hypotenuse
+$btn-sm-burger-x-top: math.sqrt((($btn-sm-width-calc / 2) * ($btn-sm-width-calc / 2)) / 2) * 1rem;
+
+//
+// EDGY lg BTN
+$btn-lg-width-calc: (2 * $bootstrap-btn-lg-padding-rem) + ($bootstrap-btn-lg-line-height * $bootstrap-btn-lg-font-size-rem);
+$btn-lg-width: $btn-lg-width-calc * 1rem;
+$btn-lg-burger-thickness: $btn-lg-burger-thickness-rem * 1rem;
+$btn-lg-padding: (($btn-lg-width-calc - $btn-lg-burger-thickness-rem) / 2) * 1rem;
+
+// width - opposite
+$btn-lg-burger-x-left: ($btn-lg-width-calc - math.sqrt(($btn-lg-width-calc * $btn-lg-width-calc) / 2)) / 2 * 1rem;
+// half of the opposite by full the hypotenuse
+$btn-lg-burger-x-top: math.sqrt((($btn-lg-width-calc / 2) * ($btn-lg-width-calc / 2)) / 2) * 1rem;

@@ -17,7 +17,7 @@ body {
 
         background: #fff;
         padding: 0.75rem;
-        transition: box-shadow .5s ease;
+        transition: box-shadow $animation-speed ease;
     }
     &-left > nav,
     &-right > nav {
@@ -30,7 +30,7 @@ body {
         width: 100%;
     }
     &:not(.edgy-swipe) {
-        transition: transform .5s ease;
+        transition: transform $animation-speed ease;
     }
 
     // POSITION OF EDGY
