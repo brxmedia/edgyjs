@@ -9,8 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" integrity="sha512-vswe+cgvic/XBoF1OcM/TeJ2FW0OofqAVdCZiEYkd6dwGXthvkSFWOoGGJgS2CW70VK5dQM5Oh+7ne47s74VTg==" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/toolbar/prism-toolbar.min.css" integrity="sha512-DSAA0ziYwggOJ3QyWFZhIaU8bSwQLyfnyIrmShRLBdJMtiYKT7Ju35ujBCZ6ApK3HURt34p2xNo+KX9ebQNEPQ==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.1/build/styles/monokai-sublime.min.css">
     <link rel="stylesheet" href="/demos/demo.min.css">
     <link rel="stylesheet" href="../css/edgy.css">
 </head>
@@ -48,13 +47,13 @@
     <nav class="bg-mainly sticky-top shadow">
         <div class="container d-flex justify-content-between py-3">
             <nav class="d-flex">
-                <a href="#" class="edgy-btn edgy-btn-lg edgy-btn-toggle">
+                <a href="#" class="edgy-btn edgy-btn-toggle">
                     <span class="burger"></span>
                 </a>
                 <div class="btn-group ms-4">
-                    <a href="#" class="btn btn-lg btn-outline-light edgy-ed-toggle">Toggle all</a>
-                    <a href="#" class="btn btn-lg btn-light edgy-ed-open">Open all</a>
-                    <a href="#" class="btn btn-lg btn-outline-light edgy-ed-close">Close all</a>
+                    <a href="#" class="btn btn-outline-light edgy-ed-toggle">Toggle all</a>
+                    <a href="#" class="btn btn-light edgy-ed-open">Open all</a>
+                    <a href="#" class="btn btn-outline-light edgy-ed-close">Close all</a>
                 </div>
             </nav>
             <a href="https://github.com/brxmedia/edgyjs/fork" target="_blank" class="btn btn-link text-light d-none d-md-inline-block">
@@ -103,7 +102,33 @@
         </div>
         <div class="row mb-5">
             <div class="col">
-<pre class="my-0"><code class="language-js">var edgyExample1 = new edgy('#edgyExample1',{
+<pre class="my-1"><code class="p-3 language-html">&lt;div class="edgy-example-box border gb-light"&gt;
+    &lt;aside id="edgyExample1"&gt;
+        &lt;article&gt;this could be a navigation of some sort&lt;/article&gt;
+    &lt;/aside&gt;
+    &lt;div class="edgy-example-box-content row mx-0 py-3 px-5"&gt;
+        &lt;div class="col px-5"&gt;
+            &lt;h3&gt;Lorem Ipsum&lt;/h3&gt;
+            &lt;p&gt;Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. &lt;/p&gt;
+            &lt;p&gt;Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. &lt;/p&gt;
+            &lt;p&gt;Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. &lt;/p&gt;
+            &lt;p&gt;Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. &lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<pre class="my-0"><code class="p-3 language-js">var edgyExample1 = new edgy('#edgyExample1',{
     position: 'left',
     toggle: '.edgy-ed-toggle',
     close: '.edgy-ed-close',
@@ -270,9 +295,9 @@
         // obj_edgy1.open();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-core.min.js" integrity="sha512-xR+IAyN+t9EBIOOJw5m83FTVMDsPd63IhJ3ElP4gmfUFnQlX9+eWGLp3P4t3gIjpo2Z1JzqtW/5cjgn+oru3yQ==" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-zc7WDnCM3aom2EziyDIRAtQg1mVXLdILE09Bo+aE1xk0AM2c2cVLfSW9NrxE5tKTX44WBY0Z2HClZ05ur9vB6A==" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/toolbar/prism-toolbar.min.js" integrity="sha512-cu2C9EssrOrVXT4thyL4gz/qWyh3Lq9XbICUXYyh3zJRCSKk1J08tBKPXnsSpdpZXOliaK/OJBygw/l0twAmwA==" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js" integrity="sha512-bWzyGaP/f19RLeYGN6ZhDgvkS7GM0Fq23lOI1/PB3lV6I775RIDzXLxCGR4iiDGzeMsQ3lncuXUQMFP7qO9lIQ==" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.1/build/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
 </body>
 </html>
