@@ -207,43 +207,43 @@ body > .edgy-shadow {
 .edgy-btn-lg:hover:not(.edgy-open) > .burger::before, .edgy-btn-lg:hover:not(.edgy-open) > .burger::after {
   width: 2.875rem;
 }
-.edgy-btn:hover, .edgy-btn.edgy-open {
+.edgy-btn.edgy-open {
   background: rgba(255, 255, 255, 0.2);
 }
-.edgy-btn:hover > .burger, .edgy-btn.edgy-open > .burger {
+.edgy-btn.edgy-open > .burger {
   width: 0 !important;
 }
-.edgy-btn:hover > .burger::before, .edgy-btn.edgy-open > .burger::before {
+.edgy-btn.edgy-open > .burger::before {
   top: -0.7954951288rem;
   left: 0.3295048712rem;
   width: 2.25rem;
   transform: rotate(45deg);
 }
-.edgy-btn:hover > .burger::after, .edgy-btn.edgy-open > .burger::after {
+.edgy-btn.edgy-open > .burger::after {
   top: 0.7954951288rem;
   left: 0.3295048712rem;
   width: 2.25rem;
   transform: rotate(-45deg);
 }
-.edgy-btn:hover.edgy-btn-sm > .burger::before, .edgy-btn.edgy-open.edgy-btn-sm > .burger::before {
+.edgy-btn.edgy-open.edgy-btn-sm > .burger::before {
   top: -0.6408155205rem;
   left: 0.2654344795rem;
   width: 1.8125rem;
   transform: rotate(45deg);
 }
-.edgy-btn:hover.edgy-btn-sm > .burger::after, .edgy-btn.edgy-open.edgy-btn-sm > .burger::after {
+.edgy-btn.edgy-open.edgy-btn-sm > .burger::after {
   top: 0.6408155205rem;
   left: 0.2654344795rem;
   width: 1.8125rem;
   transform: rotate(-45deg);
 }
-.edgy-btn:hover.edgy-btn-lg > .burger::before, .edgy-btn.edgy-open.edgy-btn-lg > .burger::before {
+.edgy-btn.edgy-open.edgy-btn-lg > .burger::before {
   top: -1.016465998rem;
   left: 0.421034002rem;
   width: 2.875rem;
   transform: rotate(45deg);
 }
-.edgy-btn:hover.edgy-btn-lg > .burger::after, .edgy-btn.edgy-open.edgy-btn-lg > .burger::after {
+.edgy-btn.edgy-open.edgy-btn-lg > .burger::after {
   top: 1.016465998rem;
   left: 0.421034002rem;
   width: 2.875rem;
